@@ -30,7 +30,6 @@ typedef struct	s_vector
 }				t_vec;
 
 int				vec_add(t_vec *vector, void *element);
-//int				vec_append(t_vec *vector, void *element, size_t count);
 void			vec_del(t_vec *vector);
 void			*vec_get(t_vec *vector, size_t index);
 int				vec_init(t_vec *vector, size_t elmnt_size);

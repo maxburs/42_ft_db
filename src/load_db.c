@@ -16,7 +16,7 @@
 
 static int	new_db(struct s_header *header, t_vec *db)
 {
-	if (NULL == (header->fields = malloc(sizeof *header->fields * 2)))
+	if (NULL == (header->fields = malloc(sizeof(*header->fields) * 2)))
 		return (-1);
 	header->entry_size = 10;
 	header->field_count = 2;
@@ -35,7 +35,7 @@ static int	new_db(struct s_header *header, t_vec *db)
 	return (0);
 }
 
-int		load_db(struct s_header *header, t_vec *db,
+int			load_db(struct s_header *header, t_vec *db,
 			int argc, char **argv)
 {
 	(void)(argc);

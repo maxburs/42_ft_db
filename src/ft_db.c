@@ -14,7 +14,8 @@
 
 /*
 ** TODO: add commands SET and ADD
-** TODO: let user initialize database (right now starts with fields i picked and a db i made)
+** TODO: let user initialize database
+**    right now starts with fields i picked and a db i made)
 ** TODO: save database in file and load from file
 ** TODO: decide on error handling scheme
 */
@@ -23,13 +24,13 @@ int		main(int argc, char **argv)
 {
 	struct s_header		header;
 	struct s_command	command;
-	t_vec				db; //will become fd?
+	t_vec				db;
 	t_vec				entries;
 
-	if (-1 == load_db(&header, &db, argc, argv))
+	if (-1 == load_db(&header, &db, argc, argv)
+		|| vec_init(&entries, sizeof(void*)))
 		return (1);
-	//because db is currently just in memory 'entries' just points to the entries that are found, will contain complete entries later
-	vec_init(&entries, sizeof(void*));
+	;
 	while (true)
 	{
 		command.type = GET;

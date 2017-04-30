@@ -16,7 +16,7 @@
 
 int				vec_rm(t_vec *vector, size_t index)
 {
-	ft_memcpy(vector->data + (index * vector->elmnt_size), 
+	ft_memcpy(vector->data + (index * vector->elmnt_size),
 		vector->data + ((index + 1) * vector->elmnt_size),
 		(vector->elmnt_count - index) * vector->elmnt_size);
 	vector->elmnt_count--;
