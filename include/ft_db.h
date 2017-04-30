@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/04/30 14:34:34 by rle              ###   ########.fr       */
+/*   Updated: 2017/04/30 15:36:23 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ enum	e_ctype
 	GET,
 	SET,
 	ADD,
-	CLEAR //clear entries
+	CLEAR, //clear entries
+	NONE
 };
 
 struct	s_command
@@ -54,7 +55,7 @@ struct	s_header
 
 int		load_db(struct s_header *header, t_vec *db,
 			int argc, char **argv);
-int		get_next_command(struct s_header *header, struct s_command *command);
+int		get_next_command(struct s_command *command, struct s_header *header);
 int		execute_command(struct s_header *header,
 			struct s_command command, t_vec *entries, t_vec *db);
 

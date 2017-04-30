@@ -6,122 +6,113 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 14:04:53 by rle               #+#    #+#             */
-/*   Updated: 2017/04/28 16:06:03 by rle              ###   ########.fr       */
+/*   Updated: 2017/04/30 15:38:08 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_db.h"
+#include <stdio.h>
 
-int valid_command(char *line, _Bool *close, int i)
+int compare_string(char *big, char *little)
 {
-	if (line[i] == 'x' || line[i] == 'X')
-	{
-		*close = true;
-		return (1);
-	}
-	if (line[i] != 'G' && line[i] != 'S')
-		return (0);
-	i++;
-	if (line[i++] != ' ')
-		return (0);
-	while (line[i] && line[i] != ':')
+	int i;
+
+	i = 0;
+	while (big[i] && little[i] && (big[i] == little[i]))
 		i++;
-	if (!line[i])
-		return (1);
-	if (line[i++] != ':')
-		return (0);
-	while (line[i] && ft_isdigit(line[i]))
-		i++;
-	if (!line[i] && line[0] == 'G')
-		return (1);
-	if (line[i++] != ' ')
-		return (0);
-	while (line[i] && ft_isdigit(line[i]))
-		i++;
-	if (!line[i])
+	if (!little[i])
 		return (1);
 	return (0);
 }
 
-void	get_field_find(t_command *command, char *line)
+int get_command_type(char *line, struct s_command *command)
 {
-	int j;
-	int i;
-
-	i = 2;
-	j = 0;
-	while (line[i] && line[i] != ':')
-	{
-		command->field[j] = line[i];
-		i++;
-		j++;
-	}
-	command->field[j] = '\0';
-	if (!line[i])
-		return ;
-	i++;
-	while (line[i] && ft_isdigit(line[i]))
-	{
-		command->find *= 10;
-		command->find += line[i] - '0';
-		i++;
-	}
+	command->type = NONE;
+	if (compare_string(line, "CLOSE"))
+		command->type = CLOSE;
+	if (compare_string(line, "GET"))
+		command->type = GET;
+	if (compare_string(line, "SET"))
+		command->type = SET;
+	if (compare_string(line, "ADD"))
+		command->type = ADD;
+	if (compare_string(line, "CLEAR"))
+		command->type = CLEAR;
+	if (command->type == NONE)
+		return (0);
+	return (1);
 }
 
-void	get_set(t_command *command, char *line)
+int		get_field(char *line, struct s_header *header)
 {
 	int i;
 	int j;
+	char *field;
 
 	j = 0;
-	i = 2;
+	i = 0;
 	while (line[i] && line[i] != ' ')
 		i++;
-	if (!line[i])
-		return ;
-	i++;
-	while (line[i])
+	if (!line[i++])
+		return (-1);
+	while (line[i + j] && line[i + j] != ':')
+		j++;
+	if (!line[i + j])
+		return (-1);
+	field = (char *)malloc(sizeof(char) * j + 1);
+	j = 0;
+	while (line[i] && line[i] != ':')
+		field[j++] = line[i++];
+	field[j] = '\0';
+	i = 0;
+	while (i < (int)header->field_count)
 	{
-		command->set *= 10;
-		command->set += line[i] - '0';
+		if (compare_string(header->fields[i].name, field))
+			return (i);
 		i++;
 	}
+	return (-1);
 }
-void	parse_command(t_command *command, char *line)
+
+int	get_value(char *line, struct s_command *command, struct s_header *header)
 {
 	int i;
 	int j;
 
+	j = 0;
 	i = 0;
-	command->option = line[i];
+	command->value = (char *)malloc(sizeof(char) * header->fields[command->field].value_size);
+	ft_bzero(command->value, header->fields[command->field].value_size);
 	while (line[i] && line[i] != ':')
 		i++;
-	command->field = (char *)malloc(sizeof(char) * (j - i + 1));
-	get_field_find(command, line);
-	if (command->option == 'S')
-		get_set(command, line);
+	if (!line[i++])
+		return (0);
+	while (line[i])
+	{
+		((char *)command->value)[j] = line[i];
+		i++;
+		j++;
+
+	}
+	return (1);
 }
 
-int	get_next_command(t_command *command, _Bool *close)
+int		get_next_command(struct s_command *command, struct s_header *header)
 {
 	char *line;
-	int i;
-	int j;
-	char option;
 
-	i = 0;
-	j = 0;
-	command->find = 0;
-	command->set = 0;
 	get_next_line(0, &line);
-	if (valid_command(line, close, 0))
+	if (get_command_type(line, command))
 	{
-		if (*close)
-			return (0);
-		parse_command(command, line);
+		if (command->type == CLOSE)
+			return (-1);
+		if (-1 == (command->field = get_field(line, header)))
+			return (-1);
+		if (!get_value(line, command, header))
+			return (-1);
 		return (1);
 	}
 	else
 		printf("invalid command\n");
-	return (0);
+	return (-1);
 }

@@ -3,23 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zsmith <zsmith@student.42.fr>              +#+  +:+       +#+         #
+#    By: rle <rle@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/23 19:31:26 by mburson           #+#    #+#              #
-#    Updated: 2017/04/17 17:44:45 by zsmith           ###   ########.fr        #
+#    Updated: 2017/04/30 15:37:18 by rle              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_db
 
-LIBFT = ./libft/libft.a
-LIBFT_DIR = ./libft
+LIBFT = ./libft2/libft.a
+LIBFT_DIR = ./libft2
 
 SRC = \
 	$(addprefix src/, \
 		execute_command.c \
 		ft_db.c \
 		load_db.c \
+		get_command.c \
 		$(addprefix vector/, \
 			vec_add.c \
 			vec_del.c \
@@ -32,7 +33,7 @@ SRC = \
 
 OBJ = $(SRC:.c=.o)
 
-HEADERS = -I ./include -I ./libft
+HEADERS = -I ./include -I ./libft2/includes
 
 CFLAGS = -Wall -Wextra -Werror -g
 
