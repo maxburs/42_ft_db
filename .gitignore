@@ -2,4 +2,4 @@
 *.a
 *.dSYM/
 ._*
-/.vscode
+/ft_db
