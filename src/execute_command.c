@@ -19,6 +19,7 @@ static int	get(struct s_header *header,
 	uint8_t	*entry;
 
 	entries->elmnt_count = 0;
+	i = 0;
 	while (i < db->elmnt_count)
 	{
 		entry = vec_get(db, i);
