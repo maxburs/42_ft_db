@@ -28,8 +28,6 @@ static int	get(struct s_header *header,
 		{
 			if (-1 == vec_add(entries, &entry))
 				return (-1);
-			write(1, entry, header->entry_size);
-			write(1, "\n", 1);
 		}
 		i++;
 	}

@@ -20,6 +20,7 @@ SRC = \
 		execute_command.c \
 		ft_db.c \
 		load_db.c \
+		print_entries.c \
 		$(addprefix vector/, \
 			vec_add.c \
 			vec_del.c \
@@ -46,6 +47,8 @@ $(NAME): $(OBJ) $(LIBFT)
 
 $(LIBFT): force
 	$(MAKE) -C $(LIBFT_DIR)
+
+$(OBJ): ./include/ft_db.h
 
 force:
 	@true

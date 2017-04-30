@@ -15,7 +15,7 @@
 /*
 ** TODO: add commands SET and ADD
 ** TODO: let user initialize database (right now starts with fields i picked and a db i made)
-** TODO: save database in file
+** TODO: save database in file and load from file
 ** TODO: decide on error handling scheme
 */
 
@@ -39,6 +39,7 @@ int		main(int argc, char **argv)
 			|| */command.type == CLOSE
 			|| -1 == execute_command(&header, command, &entries, &db))
 			break ;
+		print_entries(header.entry_size, &entries);
 		break ;
 	}
 	vec_del(&db);
