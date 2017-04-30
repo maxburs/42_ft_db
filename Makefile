@@ -10,58 +10,29 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = corewar
+NAME = ft_db
 
 LIBFT = ./libft/libft.a
 LIBFT_DIR = ./libft
 
 SRC = \
 	$(addprefix src/, \
-		corewar.c \
-		free.c \
-		init_game_struct.c \
-		op.c \
-		utilites.c \
-		$(addprefix args/, \
-			parse_args.c \
-			flags_tags.c \
-			print_usage.c \
+		execute_command.c \
+		ft_db.c \
+		load_db.c \
+		$(addprefix vector/, \
+			vec_add.c \
+			vec_del.c \
+			vec_get.c \
+			vec_init.c \
+			vec_realloc.c \
+			vec_rm.c \
 		) \
-		$(addprefix game_print/, \
-			game_print.c \
-			print_hex.c \
-		) \
-		$(addprefix game_step/, \
-			game_step.c \
-		) \
-		$(addprefix operations/, \
-			sti.c \
-			add_sub.c \
-			and_or_xor.c \
-			fork_lfork_aff.c \
-			utilites.c \
-			utilities2.c \
-			live.c \
-			validate_parameters.c \
-			parse_parameters.c \
-		) \
-	) \
-	$(addprefix maxlib/list/, \
-		lstadd.c \
-		lstdel.c \
-		lstdelone.c \
-		lstiter.c \
-		lstmap.c \
-		lstnew.c \
-		lstprint.c \
-		lstpush.c \
-		lstreverse.c \
-		lstsort.c \
 	)
 
 OBJ = $(SRC:.c=.o)
 
-HEADERS = -I ../includes -I ./libft/includes
+HEADERS = -I ./include -I ./libft
 
 CFLAGS = -Wall -Wextra -Werror -g
 

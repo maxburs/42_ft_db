@@ -10,39 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_db.h>
+#include <vector.h>
+#include <stdlib.h>
+#include <libft.h>
 
-/*
-** TODO: add commands SET and ADD
-** TODO: let user initialize database (right now starts with fields i picked and a db i made)
-** TODO: save database in file
-** TODO: decide on error handling scheme
-*/
-
-int		main(int argc, char **argv)
+int				vec_add(t_vec *vector, void *element)
 {
-	struct s_header		header;
-	struct s_command	command;
-	t_vec				db; //will become fd?
-	t_vec				entries;
-
-	if (-1 == load_db(&header, &db, argc, argv))
-		return (1);
-	//because db is currently just in memory 'entries' just points to the entries that are found, will contain complete entries later
-	vec_init(&entries, sizeof(void*));
-	while (true)
+	if (vector->elmnt_count == vector->elmnt_max)
 	{
-		command.type = GET;
-		command.field = 0;
-		command.value = "foo\0\0";
-		if (/*-1 == get_next_command(&header, &command)
-			|| */command.type == CLOSE
-			|| -1 == execute_command(&header, command, &entries, &db))
-			break ;
-		break ;
+		if (-1 == vec_realloc(vector, vector->elmnt_max * VECTOR_INCREASE_RATIO))
+		return (-1);
 	}
-	vec_del(&db);
-	vec_del(&entries);
-	free(header.fields);
+	ft_memcpy(vector->data_end, element, vector->elmnt_size);
+	vector->data_end += vector->elmnt_size;
+	vector->elmnt_count++;
 	return (0);
 }

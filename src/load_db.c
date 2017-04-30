@@ -12,37 +12,34 @@
 
 #include <ft_db.h>
 
-/*
-** TODO: add commands SET and ADD
-** TODO: let user initialize database (right now starts with fields i picked and a db i made)
-** TODO: save database in file
-** TODO: decide on error handling scheme
-*/
+#define VALUE_SIZE	100
 
-int		main(int argc, char **argv)
+static int	new_db(struct s_header *header, t_vec *db)
 {
-	struct s_header		header;
-	struct s_command	command;
-	t_vec				db; //will become fd?
-	t_vec				entries;
+	if (NULL == (header->fields = malloc(sizeof *header->fields * 2)))
+		return (-1);
+	header->entry_size = 10;
+	header->field_count = 2;
+	header->fields[0].name = "name";
+	header->fields[0].name_size = 5;
+	header->fields[0].offset = 0;
+	header->fields[0].value_size = 5;
+	header->fields[0].name = "color";
+	header->fields[0].name_size = 6;
+	header->fields[0].offset = 5;
+	header->fields[0].value_size = 5;
+	vec_init(db, header->entry_size);
+	vec_add(db, "bob\0\0blue\0");
+	vec_add(db, "sam\0\0red\0\0");
+	vec_add(db, "foo\0\0bar\0");
+	return (0);
+}
 
-	if (-1 == load_db(&header, &db, argc, argv))
-		return (1);
-	//because db is currently just in memory 'entries' just points to the entries that are found, will contain complete entries later
-	vec_init(&entries, sizeof(void*));
-	while (true)
-	{
-		command.type = GET;
-		command.field = 0;
-		command.value = "foo\0\0";
-		if (/*-1 == get_next_command(&header, &command)
-			|| */command.type == CLOSE
-			|| -1 == execute_command(&header, command, &entries, &db))
-			break ;
-		break ;
-	}
-	vec_del(&db);
-	vec_del(&entries);
-	free(header.fields);
+int		load_db(struct s_header *header, t_vec *db,
+			int argc, char **argv)
+{
+	(void)(argc);
+	(void)(argv);
+	new_db(header, db);
 	return (0);
 }

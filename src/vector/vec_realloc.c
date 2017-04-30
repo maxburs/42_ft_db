@@ -10,39 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_db.h>
+#include <vector.h>
+#include <stdlib.h>
+#include <libft.h>
 
-/*
-** TODO: add commands SET and ADD
-** TODO: let user initialize database (right now starts with fields i picked and a db i made)
-** TODO: save database in file
-** TODO: decide on error handling scheme
-*/
-
-int		main(int argc, char **argv)
+int				vec_realloc(t_vec *vec, size_t new_size)
 {
-	struct s_header		header;
-	struct s_command	command;
-	t_vec				db; //will become fd?
-	t_vec				entries;
-
-	if (-1 == load_db(&header, &db, argc, argv))
-		return (1);
-	//because db is currently just in memory 'entries' just points to the entries that are found, will contain complete entries later
-	vec_init(&entries, sizeof(void*));
-	while (true)
-	{
-		command.type = GET;
-		command.field = 0;
-		command.value = "foo\0\0";
-		if (/*-1 == get_next_command(&header, &command)
-			|| */command.type == CLOSE
-			|| -1 == execute_command(&header, command, &entries, &db))
-			break ;
-		break ;
-	}
-	vec_del(&db);
-	vec_del(&entries);
-	free(header.fields);
+	uint8_t		*new_data;
+	if (vec->elmnt_max > new_size)
+		return (-1);
+	if (NULL == (new_data = malloc(vec->elmnt_size * new_size)))
+		return (-1);
+	ft_memcpy(new_data, vec->data, vec->elmnt_size * vec->elmnt_count);
+	free(vec->data);
+	vec->elmnt_max = new_size;
+	vec->data = new_data;
+	vec->data_end = new_data + (vec->elmnt_size * vec->elmnt_count);
 	return (0);
 }
