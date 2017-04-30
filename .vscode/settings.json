@@ -9,5 +9,6 @@
 		"**/*.o": true
 	},
 	"editor.rulers": [80],
-	"editor.insertSpaces": false
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false
 }
