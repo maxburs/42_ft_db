@@ -12,13 +12,12 @@
 
 #include <ft_db.h>
 
-static int	get(struct s_header *header,
-				struct s_command cmd, t_vec *entries, t_vec *db)
+static int	get(struct s_header *header, struct s_command cmd,
+				t_vec *entries, t_vec *db)
 {
 	size_t	i;
 	uint8_t	*entry;
 
-	entries->elmnt_count = 0;
 	i = 0;
 	while (i < db->elmnt_count)
 	{
@@ -34,12 +33,47 @@ static int	get(struct s_header *header,
 	return (0);
 }
 
+static int	clear(struct s_header *header, struct s_command cmd,
+				t_vec *entries, t_vec *db)
+{
+	(void)(header);
+	(void)(cmd); //todo: only clear what we've been asked to
+	(void)(db);
+	entries->elmnt_count = 0;
+	if (-1 == vec_realloc(entries, 4))
+		return (-1);
+	return (0);
+}
+
+static int	set(struct s_header *header, struct s_command cmd,
+				t_vec *entries, t_vec *db)
+{
+	size_t	i;
+	uint8_t	*entry;
+
+	i = 0;
+	while (i < db->elmnt_count)
+	{
+		entry = *(uint8_t**)vec_get(entries, i);
+		ft_memcpy(entry + header->fields[cmd.field].offset,
+			cmd.value, header->fields[cmd.field].value_size);
+		i++;
+	}
+	return (0);
+}
+
 int			execute_command(struct s_header *header,
 				struct s_command command, t_vec *entries, t_vec *db)
 {
-	if (command.type != GET)
+	if (command.type == GET)
+		return get(header, command, entries, db);
+	else if (command.type == CLEAR)
+		return clear(header, command, entries, db);
+	else if (command.type == SET)
+		return set(header, command, entries, db);
+	else
+	{
+		ft_putstr_fd("ERROR: bad command type\n", STDERR_FILENO);
 		return (-1);
-	if (-1 == get(header, command, entries, db))
-		return (-1);
-	return (0);
+	}
 }
