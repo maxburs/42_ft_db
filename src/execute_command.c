@@ -62,6 +62,26 @@ static int	set(struct s_header *header, struct s_command cmd,
 	return (0);
 }
 
+static int	add(struct s_header *header, struct s_command cmd,
+				t_vec *entries, t_vec *db)
+{
+	uint8_t		*entry;
+
+	if (db->elmnt_count == db->elmnt_max)
+	{
+		if (-1 == vec_realloc(db, db->elmnt_max * VECTOR_INCREASE_RATIO))
+		return (-1);
+	}
+	db->elmnt_count++;
+	entry = vec_get(db, entries->elmnt_count - 1);
+	ft_bzero(entry, header->entry_size);
+	ft_memcpy(entry + header->fields[cmd.field].offset,
+		cmd.value, header->fields[cmd.field].value_size);
+	if (-1 == vec_add(entries, &entry))
+		return (-1);
+	return (0);
+}
+
 int			execute_command(struct s_header *header,
 				struct s_command command, t_vec *entries, t_vec *db)
 {
@@ -71,6 +91,8 @@ int			execute_command(struct s_header *header,
 		return clear(header, command, entries, db);
 	else if (command.type == SET)
 		return set(header, command, entries, db);
+	else if (command.type == SET)
+		return add(header, command, entries, db);
 	else
 	{
 		ft_putstr_fd("ERROR: bad command type\n", STDERR_FILENO);
