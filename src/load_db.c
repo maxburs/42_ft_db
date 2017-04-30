@@ -24,10 +24,10 @@ static int	new_db(struct s_header *header, t_vec *db)
 	header->fields[0].name_size = 5;
 	header->fields[0].offset = 0;
 	header->fields[0].value_size = 5;
-	header->fields[0].name = "color";
-	header->fields[0].name_size = 6;
-	header->fields[0].offset = 5;
-	header->fields[0].value_size = 5;
+	header->fields[1].name = "color";
+	header->fields[1].name_size = 6;
+	header->fields[1].offset = 5;
+	header->fields[1].value_size = 5;
 	vec_init(db, header->entry_size);
 	vec_add(db, "bob\0\0blue\0");
 	vec_add(db, "sam\0\0red\0\0");
