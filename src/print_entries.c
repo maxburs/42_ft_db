@@ -21,8 +21,8 @@ void	print_entries(size_t entry_size, t_vec *entries)
 	while (i < entries->elmnt_count)
 	{
 		entry = *(uint8_t**)vec_get(entries, i);
-		write(1, entry, entry_size);
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, entry, entry_size);
+		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}
 }

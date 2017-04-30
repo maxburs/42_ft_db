@@ -18,8 +18,9 @@ int				vec_add(t_vec *vector, void *element)
 {
 	if (vector->elmnt_count == vector->elmnt_max)
 	{
-		if (-1 == vec_realloc(vector, vector->elmnt_max * VECTOR_INCREASE_RATIO))
-		return (-1);
+		if (-1 == vec_realloc(vector,
+			vector->elmnt_max * VECTOR_INCREASE_RATIO))
+			return (-1);
 	}
 	ft_memcpy(vector->data_end, element, vector->elmnt_size);
 	vector->data_end += vector->elmnt_size;
