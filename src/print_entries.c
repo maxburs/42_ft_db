@@ -10,11 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <vector.h>
-#include <stdlib.h>
-#include <libft.h>
+#include <ft_db.h>
 
-void		*vec_get(t_vec *vector, size_t index)
+void	print_entries(size_t entry_size, t_vec *entries)
 {
-	return (vector->data + (vector->elmnt_size * index));
+	size_t	i;
+	uint8_t	*entry;
+
+	i = 0;
+	while (i < entries->elmnt_count)
+	{
+		entry = *(uint8_t**)vec_get(entries, i);
+		write(1, entry, entry_size);
+		write(1, "\n", 1);
+		i++;
+	}
 }
