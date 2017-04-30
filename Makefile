@@ -6,14 +6,14 @@
 #    By: rle <rle@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/23 19:31:26 by mburson           #+#    #+#              #
-#    Updated: 2017/04/30 15:37:18 by rle              ###   ########.fr        #
+#    Updated: 2017/04/30 16:22:07 by rle              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_db
 
-LIBFT = ./libft2/libft.a
-LIBFT_DIR = ./libft2
+LIBFT = ./libft/libft.a
+LIBFT_DIR = ./libft
 
 SRC = \
 	$(addprefix src/, \
@@ -22,6 +22,7 @@ SRC = \
 		load_db.c \
 		get_command.c \
 		print_entries.c \
+		get_next_line.c \
 		$(addprefix vector/, \
 			vec_add.c \
 			vec_del.c \
@@ -34,7 +35,7 @@ SRC = \
 
 OBJ = $(SRC:.c=.o)
 
-HEADERS = -I ./include -I ./libft2/includes
+HEADERS = -I ./include -I ./libft
 
 CFLAGS = -Wall -Wextra -Werror -g
 

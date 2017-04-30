@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 14:04:53 by rle               #+#    #+#             */
-/*   Updated: 2017/04/30 15:38:08 by rle              ###   ########.fr       */
+/*   Updated: 2017/04/30 16:35:36 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ int		get_next_command(struct s_command *command, struct s_header *header)
 {
 	char *line;
 
-	get_next_line(0, &line);
+	if (-1 == get_next_line(&line))
+		return (-1);
 	if (get_command_type(line, command))
 	{
 		if (command->type == CLOSE)

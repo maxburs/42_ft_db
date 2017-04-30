@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/04/30 15:38:49 by rle              ###   ########.fr       */
+/*   Updated: 2017/04/30 15:41:59 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		main(int argc, char **argv)
 			|| command.type == CLOSE
 			 || -1 == execute_command(&header, command, &held_entries, &db))
 			break ;
-		print_entries(header.entry_size, &entries);
+		print_entries(header.entry_size, &held_entries);
 		break ;
 	}
 	vec_del(&db);
