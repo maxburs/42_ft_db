@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 14:04:53 by rle               #+#    #+#             */
-/*   Updated: 2017/04/30 17:42:49 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/01 14:01:17 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,30 @@ int		get_value(char *line, struct s_command *command,
 	return (1);
 }
 
+/*
+	Too large
+	Bad command
+*/
+
+size_t	value_size(char *line)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (line[i] && line[i] != ':')
+		i++;
+	if (!line[i++])
+		return (-1);
+	while (line[i])
+	{
+		i++;
+		j++;
+	}
+	return (j);
+}
+
 int		get_next_command(struct s_command *command, struct s_header *header)
 {
 	char *line;
@@ -105,12 +129,24 @@ int		get_next_command(struct s_command *command, struct s_header *header)
 		if (command->type == CLOSE || command->type == CLEAR)
 			return (1);
 		if (-1 == (command->field = get_field(line, header)))
-			return (-1);
+		{
+			ft_putstr("Invalid field\n");
+			return (get_next_command(command, header));
+		}
+		if (value_size(line) > header->fields[command->field].value_size)
+		{
+			ft_putstr("Value size is too large\n");
+			return (get_next_command(command, header));
+		}
 		if (!get_value(line, command, header))
 			return (-1);
 		return (1);
 	}
 	else
-		ft_putstr("invalid command\n");
+	{
+		ft_putstr("Bad Command\n");
+		free(line);
+		return (get_next_command(command, header));
+	}
 	return (-1);
 }

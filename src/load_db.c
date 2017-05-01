@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.c                                          :+:      :+:    :+:   */
+/*   load_db.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsmith <zsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/04/05 13:46:56 by zsmith           ###   ########.fr       */
+/*   Updated: 2017/05/01 14:43:01 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,45 @@
 
 static int	new_db(struct s_header *header, t_vec *db)
 {
-	if (NULL == (header->fields = malloc(sizeof(*header->fields) * 2)))
+	int n;
+	int i;
+	int value_size;
+	char *line;
+
+	ft_putstr("How many entries?\n");
+	get_next_line(&line);
+	n = ft_atoi(line);
+	header->entry_size = n;
+
+
+	ft_putstr("How many fields?\n");
+	get_next_line(&line);
+	n = ft_atoi(line);
+	header->field_count = n;
+	if (NULL == (header->fields = malloc(sizeof(*header->fields) * n)))
 		return (-1);
-	header->entry_size = 10;
-	header->field_count = 2;
-	header->fields[0].name = "name";
-	header->fields[0].name_size = 5;
-	header->fields[0].offset = 0;
-	header->fields[0].value_size = 5;
-	header->fields[1].name = "color";
-	header->fields[1].name_size = 6;
-	header->fields[1].offset = 5;
-	header->fields[1].value_size = 5;
+	
+	ft_putstr("Value size?\n");
+	get_next_line(&line);
+	value_size = ft_atoi(line);
+	
+	i = 0;
+	while (i < (int)header->field_count)
+	{
+		ft_putstr("Field ");
+		ft_putnbr(i + 1);
+		ft_putstr("?\n");
+		get_next_line(&line);
+		header->fields[i].name = line;
+		header->fields[i].name_size = ft_strlen(header->fields[i].name);
+		if (i == 0)
+			header->fields[i].offset = 0;
+		else
+			header->fields[i].offset = header->fields[i - 1].offset + value_size;
+		header->fields[i].value_size = value_size;
+		i++;
+	}
+
 	vec_init(db, header->entry_size);
 	vec_add(db, "bob\0\0blue\0");
 	vec_add(db, "sam\0\0red\0\0");
