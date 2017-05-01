@@ -31,6 +31,7 @@ int		main(int argc, char **argv)
 	if (-1 == load_db(&header, &db, argc, argv)
 		|| vec_init(&held_entries, sizeof(void*)))
 		return (1);
+	command.value = NULL;
 	while (true)
 	{
 //		command.type = GET;
@@ -40,8 +41,10 @@ int		main(int argc, char **argv)
 			|| command.type == CLOSE
 			|| -1 == execute_command(&header, command, &held_entries, &db))
 			break ;
+		free(command.value);
 		print_entries(header.entry_size, &held_entries);
 	}
+	free(command.value);
 	vec_del(&db);
 	vec_del(&held_entries);
 	free(header.fields);
