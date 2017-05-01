@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 14:04:53 by rle               #+#    #+#             */
-/*   Updated: 2017/04/30 17:24:49 by rle              ###   ########.fr       */
+/*   Updated: 2017/04/30 17:42:49 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int		compare_string(char *big, char *little)
 
 int		get_command_type(char *line, struct s_command *command)
 {
-	command->type = NONE;
 	if (compare_string(line, "CLOSE"))
 		command->type = CLOSE;
 	if (compare_string(line, "GET"))
@@ -98,13 +97,12 @@ int		get_next_command(struct s_command *command, struct s_header *header)
 {
 	char *line;
 
+	ft_bzero(command, sizeof(*command));
 	if (-1 == get_next_line(&line))
 		return (-1);
 	if (get_command_type(line, command))
 	{
-		if (command->type == CLOSE)
-			return (1);
-		if (command->type == CLEAR)
+		if (command->type == CLOSE || command->type == CLEAR)
 			return (1);
 		if (-1 == (command->field = get_field(line, header)))
 			return (-1);
