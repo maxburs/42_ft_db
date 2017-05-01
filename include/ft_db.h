@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/04/30 16:36:02 by rle              ###   ########.fr       */
+/*   Updated: 2017/04/30 17:42:28 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
 
 enum	e_ctype
 {
+	NONE = 0,
 	CLOSE,
 	GET,
 	SET,
 	ADD,
-	CLEAR, //clear entries
-	NONE
+	CLEAR
 };
 
 struct	s_command
