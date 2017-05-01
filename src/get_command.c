@@ -6,14 +6,13 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 14:04:53 by rle               #+#    #+#             */
-/*   Updated: 2017/04/30 16:35:36 by rle              ###   ########.fr       */
+/*   Updated: 2017/04/30 17:22:15 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_db.h"
-#include <stdio.h>
 
-int compare_string(char *big, char *little)
+int		compare_string(char *big, char *little)
 {
 	int i;
 
@@ -25,7 +24,7 @@ int compare_string(char *big, char *little)
 	return (0);
 }
 
-int get_command_type(char *line, struct s_command *command)
+int		get_command_type(char *line, struct s_command *command)
 {
 	command->type = NONE;
 	if (compare_string(line, "CLOSE"))
@@ -45,9 +44,9 @@ int get_command_type(char *line, struct s_command *command)
 
 int		get_field(char *line, struct s_header *header)
 {
-	int i;
-	int j;
-	char *field;
+	int		i;
+	int		j;
+	char	*field;
 
 	j = 0;
 	i = 0;
@@ -64,24 +63,23 @@ int		get_field(char *line, struct s_header *header)
 	while (line[i] && line[i] != ':')
 		field[j++] = line[i++];
 	field[j] = '\0';
-	i = 0;
-	while (i < (int)header->field_count)
-	{
+	i = -1;
+	while (++i < (int)header->field_count)
 		if (compare_string(header->fields[i].name, field))
 			return (i);
-		i++;
-	}
 	return (-1);
 }
 
-int	get_value(char *line, struct s_command *command, struct s_header *header)
+int		get_value(char *line, struct s_command *command,
+	struct s_header *header)
 {
 	int i;
 	int j;
 
 	j = 0;
 	i = 0;
-	command->value = (char *)malloc(sizeof(char) * header->fields[command->field].value_size);
+	command->value = (char *)malloc(sizeof(char) * \
+		header->fields[command->field].value_size);
 	ft_bzero(command->value, header->fields[command->field].value_size);
 	while (line[i] && line[i] != ':')
 		i++;
@@ -92,7 +90,6 @@ int	get_value(char *line, struct s_command *command, struct s_header *header)
 		((char *)command->value)[j] = line[i];
 		i++;
 		j++;
-
 	}
 	return (1);
 }
@@ -106,7 +103,9 @@ int		get_next_command(struct s_command *command, struct s_header *header)
 	if (get_command_type(line, command))
 	{
 		if (command->type == CLOSE)
-			return (-1);
+			return (1);
+		if (command->type == CLEAR)
+			return (1);
 		if (-1 == (command->field = get_field(line, header)))
 			return (-1);
 		if (!get_value(line, command, header))
@@ -114,6 +113,6 @@ int		get_next_command(struct s_command *command, struct s_header *header)
 		return (1);
 	}
 	else
-		printf("invalid command\n");
+		ft_putstr("invalid command\n");
 	return (-1);
 }

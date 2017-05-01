@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/04/30 15:41:59 by rle              ###   ########.fr       */
+/*   Updated: 2017/04/30 17:22:47 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int		main(int argc, char **argv)
 	struct s_header		header;
 	struct s_command	command;
 	t_vec				db;
-	t_vec				entries;
+	t_vec				held_entries;
 
 	if (-1 == load_db(&header, &db, argc, argv)
-		|| vec_init(&entries, sizeof(void*)))
+		|| vec_init(&held_entries, sizeof(void*)))
 		return (1);
 	while (true)
 	{
@@ -40,7 +40,6 @@ int		main(int argc, char **argv)
 			 || -1 == execute_command(&header, command, &held_entries, &db))
 			break ;
 		print_entries(header.entry_size, &held_entries);
-		break ;
 	}
 	vec_del(&db);
 	vec_del(&held_entries);
