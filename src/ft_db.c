@@ -18,6 +18,7 @@
 **    right now starts with fields i picked and a db i made)
 ** TODO: save database in file and load from file
 ** TODO: decide on error handling scheme
+** BUG: SET is busted add is broken?
 */
 
 int		main(int argc, char **argv)
@@ -25,10 +26,10 @@ int		main(int argc, char **argv)
 	struct s_header		header;
 	struct s_command	command;
 	t_vec				db;
-	t_vec				entries;
+	t_vec				held_entries;
 
 	if (-1 == load_db(&header, &db, argc, argv)
-		|| vec_init(&entries, sizeof(void*)))
+		|| vec_init(&held_entries, sizeof(void*)))
 		return (1);
 	while (true)
 	{
@@ -37,10 +38,9 @@ int		main(int argc, char **argv)
 //		command.value = "foo\0\0";
 		if (-1 == get_next_command(&command, &header)
 			|| command.type == CLOSE
-			 || -1 == execute_command(&header, command, &held_entries, &db))
+			|| -1 == execute_command(&header, command, &held_entries, &db))
 			break ;
 		print_entries(header.entry_size, &held_entries);
-		break ;
 	}
 	vec_del(&db);
 	vec_del(&held_entries);

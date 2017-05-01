@@ -55,8 +55,9 @@ static int	set(struct s_header *header, struct s_command cmd,
 	size_t	i;
 	uint8_t	*entry;
 
+	(void)(db);
 	i = 0;
-	while (i < db->elmnt_count)
+	while (i < entries->elmnt_count)
 	{
 		entry = *(uint8_t**)vec_get(entries, i);
 		ft_memcpy(entry + header->fields[cmd.field].offset,
@@ -95,7 +96,7 @@ int			execute_command(struct s_header *header,
 		return (clear(header, command, entries, db));
 	else if (command.type == SET)
 		return (set(header, command, entries, db));
-	else if (command.type == SET)
+	else if (command.type == ADD)
 		return (add(header, command, entries, db));
 	else
 	{
