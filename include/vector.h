@@ -13,12 +13,12 @@
 #ifndef VECTOR_H
 # define VECTOR_H
 
-#include <libft.h>
-#include <stdint.h>
+# include <libft.h>
+# include <stdint.h>
 
-# define			VECTOR_INITIAL_SIZE		4
-# define			VECTOR_INCREASE_RATIO	2
-# define			VECTOR_DECREASE_RATIO	6
+# define VECTOR_INITIAL_SIZE	4
+# define VECTOR_INCREASE_RATIO	2
+# define VECTOR_DECREASE_RATIO	6
 
 typedef struct	s_vector
 {
