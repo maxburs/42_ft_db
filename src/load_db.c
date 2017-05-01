@@ -31,7 +31,7 @@ static int	new_db(struct s_header *header, t_vec *db)
 	vec_init(db, header->entry_size);
 	vec_add(db, "bob\0\0blue\0");
 	vec_add(db, "sam\0\0red\0\0");
-	vec_add(db, "foo\0\0bar\0");
+	vec_add(db, "foo\0\0bar\0\0");
 	return (0);
 }
 
