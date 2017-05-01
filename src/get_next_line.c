@@ -32,10 +32,10 @@ int		get_next_line(char **next_line)
 		buff[ret] = '\0';
 		lstr_add(&line, ft_strdup(buff), false);
 		if (ret == 0 || ft_strchr(buff, '\n'))
-				break ;
+			break ;
 	}
 	swap = lstr_finish(&line);
-	if (NULL == (*next_line = ft_strndup(swap, ft_strchr(swap, '\n') -  swap)))
+	if (NULL == (*next_line = ft_strndup(swap, ft_strchr(swap, '\n') - swap)))
 		return (-1);
 	free(swap);
 	return (0);

@@ -13,13 +13,13 @@
 #ifndef FT_DB_H
 # define FT_DB_H
 
-#include <stdbool.h>
-#include <string.h>
-#include <unistd.h>
-#include <vector.h>
-#include <libft.h>
-#include <stdint.h>
-#include <stdlib.h>
+# include <stdbool.h>
+# include <string.h>
+# include <unistd.h>
+# include <vector.h>
+# include <libft.h>
+# include <stdint.h>
+# include <stdlib.h>
 
 enum	e_ctype
 {

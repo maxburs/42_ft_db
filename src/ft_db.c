@@ -34,9 +34,6 @@ int		main(int argc, char **argv)
 	command.value = NULL;
 	while (true)
 	{
-//		command.type = GET;
-//		command.field = 0;
-//		command.value = "foo\0\0";
 		if (-1 == get_next_command(&command, &header)
 			|| command.type == CLOSE
 			|| -1 == execute_command(&header, command, &held_entries, &db))
