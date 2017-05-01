@@ -18,7 +18,7 @@ int				vec_realloc(t_vec *vec, size_t new_size)
 {
 	uint8_t		*new_data;
 
-	if (vec->elmnt_max > new_size)
+	if (vec->elmnt_count > new_size)
 		return (-1);
 	if (NULL == (new_data = malloc(vec->elmnt_size * new_size)))
 		return (-1);
