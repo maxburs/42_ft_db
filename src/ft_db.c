@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/04/30 17:22:47 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/01 18:23:53 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 ** TODO: save database in file and load from file
 ** TODO: decide on error handling scheme
 ** BUG: SET is busted add is broken?
+** TODO: say when get returns nothing
+** TODO: change entries to held_entries in your functions
 */
 
 int		main(int argc, char **argv)

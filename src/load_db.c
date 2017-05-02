@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/01 14:49:17 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/01 18:20:41 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define VALUE_SIZE	100
 
 
-static int get_head_count(struct s_header *header, int *value_size)
+static int get_head_count(struct s_header *header)
 {
 	int n;
 	char *line;
@@ -31,9 +31,6 @@ static int get_head_count(struct s_header *header, int *value_size)
 	header->field_count = n;
 	if (NULL == (header->fields = malloc(sizeof(*header->fields) * n)))
 		return (-1);
-	ft_putstr("Value size?\n");
-	get_next_line(&line);
-	*value_size = ft_atoi(line);
 	return (0);
 }
 
@@ -44,8 +41,9 @@ static int	new_db(struct s_header *header, t_vec *db)
 	char *line;
 
 	i = 0;
-	if (-1 == get_head_count(header, &value_size))
+	if (-1 == get_head_count(header))
 		return (-1);
+	header->entry_size = 0;
 	while (i < (int)header->field_count)
 	{
 		ft_putstr("Field ");
@@ -54,11 +52,15 @@ static int	new_db(struct s_header *header, t_vec *db)
 		get_next_line(&line);
 		header->fields[i].name = line;
 		header->fields[i].name_size = ft_strlen(header->fields[i].name);
+		ft_putstr("Value size?\n");
+		get_next_line(&line);
+		value_size = ft_atoi(line);
 		if (i == 0)
 			header->fields[i].offset = 0;
 		else
 			header->fields[i].offset = header->fields[i - 1].offset + value_size;
 		header->fields[i].value_size = value_size;
+		header->entry_size += value_size;
 		i++;
 	}
 	vec_init(db, header->entry_size);

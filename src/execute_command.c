@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.c                                          :+:      :+:    :+:   */
+/*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zsmith <zsmith@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/04/05 13:46:56 by zsmith           ###   ########.fr       */
+/*   Updated: 2017/05/01 18:06:06 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,25 @@ static int	set(struct s_header *header, struct s_command cmd,
 	return (0);
 }
 
+static int delete(struct s_header *header, struct s_command cmd, 
+					t_vec *entries, t_vec *db)
+{
+	size_t	i;
+	size_t	j;
+	uint8_t	*entry;
+
+	(void)(db);
+	i = 0;
+	while (i < entries->elmnt_count)
+	{
+		entry = *(uint8_t**)vec_get(entries, i);
+		j = (entry - db->data) / db->elmnt_size;
+		vec_rm(db, j);
+		i++;
+	}
+	clear(header, cmd, entries, db);
+	return (0);
+}
 static int	add(struct s_header *header, struct s_command cmd,
 				t_vec *entries, t_vec *db)
 {
@@ -98,6 +117,8 @@ int			execute_command(struct s_header *header,
 		return (set(header, command, entries, db));
 	else if (command.type == ADD)
 		return (add(header, command, entries, db));
+	else if(command.type == DELETE)
+		return (delete(header, command, entries, db));
 	else
 	{
 		ft_putstr_fd("ERROR: bad command type\n", STDERR_FILENO);
