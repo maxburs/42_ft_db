@@ -6,7 +6,7 @@
 #    By: rle <rle@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/23 19:31:26 by mburson           #+#    #+#              #
-#    Updated: 2017/04/30 16:22:07 by rle              ###   ########.fr        #
+#    Updated: 2017/05/03 15:22:51 by rle              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ LIBFT_DIR = ./libft
 
 SRC = \
 	$(addprefix src/, \
-		execute_command.c \
 		ft_db.c \
 		get_command.c \
 		get_next_line.c \
@@ -27,6 +26,15 @@ SRC = \
 			load_db.c \
 			new_db.c \
 			open_db.c \
+		) \
+		$(addprefix execute_command/, \
+			execute_command.c \
+			add.c \
+			clear.c \
+			delete.c \
+			filter.c \
+			get.c \
+			set.c \
 		) \
 		$(addprefix vector/, \
 			vec_add.c \

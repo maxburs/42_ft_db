@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/01 16:34:44 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/03 16:32:15 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ enum			e_ctype
 	SET,
 	ADD,
 	DELETE,
+	FILTER,
+	SHOW,
 	CLEAR
 };
 
@@ -62,10 +64,8 @@ struct			s_header
 extern char		*g_error;
 
 int				get_next_command(struct s_command *command,
-					struct s_header *header);
-int				execute_command(struct s_header *header, struct s_command
-					command, t_vec *entries, t_vec *db);
-int				print_entries(size_t entry_size, t_vec *entries);
+					struct s_header *header); 
+void			print_entries(size_t entry_size, t_vec *entries);
 int				get_next_line(char **next_line);
 int				save_db(struct s_header *header, t_vec *db, int argc,
 					char **argv);
@@ -78,4 +78,21 @@ int				load_db(struct s_header *header, t_vec *db, int argc,
 int				new_db(struct s_header *header, t_vec *db);
 int				open_db(struct s_header *header, t_vec *db, int fd);
 
+/*
+** execute_command/
+*/
+int				execute_command(struct s_header *header, struct s_command
+					command, t_vec *entries, t_vec *db);
+int				add(struct s_header *header, struct s_command cmd,
+					t_vec *entries, t_vec *db);
+int				clear(struct s_header *header, struct s_command cmd,
+					t_vec *entries, t_vec *db);
+int 			delete(struct s_header *header, struct s_command cmd, 
+					t_vec *entries, t_vec *db);
+int 			filter(struct s_header *header, struct s_command cmd,
+					t_vec *entries);
+int				get(struct s_header *header, struct s_command cmd,
+					t_vec *entries, t_vec *db);
+int				set(struct s_header *header, struct s_command cmd,
+					t_vec *entries, t_vec *db);
 #endif

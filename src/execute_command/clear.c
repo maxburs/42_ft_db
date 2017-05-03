@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   filter.c                                           :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/05/03 15:03:52 by rle               #+#    #+#             */
-/*   Updated: 2017/05/03 15:45:28 by rle              ###   ########.fr       */
+/*   Created: 2017/05/03 15:05:23 by rle               #+#    #+#             */
+/*   Updated: 2017/05/03 15:13:32 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_db.h>
 
-int filter(struct s_header *header, struct s_command cmd,
-				t_vec *entries)
+int	clear(struct s_header *header, struct s_command cmd,
+				t_vec *entries, t_vec *db)
 {
-	size_t	i;
-	uint8_t	*entry;
-
-	i = 0;
-	while (i < entries->elmnt_count)
-	{
-		entry = *(uint8_t**)vec_get(entries, i);
-		if (0 == memcmp(entry + header->fields[cmd.field].offset,
-			cmd.value, header->fields[cmd.field].value_size))
-		{
-			vec_rm(entries, i);
-			entries->elmnt_count--;
-		}
-		i++;
-	}
+	(void)(header);
+	(void)(cmd);
+	(void)(db);
+	entries->elmnt_count = 0;
+	if (-1 == vec_realloc(entries, 4))
+		return (-1);
 	return (0);
 }
