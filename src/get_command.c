@@ -69,6 +69,7 @@ int			get_field(char *line, struct s_header *header, uint64_t *field_type)
 		if (compare_string(header->fields[i].name, field))
 		{
 			*field_type = i;
+			free(field);
 			return (0);
 		}
 	return (-1);

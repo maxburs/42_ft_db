@@ -12,7 +12,7 @@
 
 #include <ft_db.h>
 
-void	print_entries(size_t entry_size, t_vec *entries)
+int		print_entries(size_t entry_size, t_vec *entries)
 {
 	size_t	i;
 	uint8_t	*entry;
@@ -21,8 +21,10 @@ void	print_entries(size_t entry_size, t_vec *entries)
 	while (i < entries->elmnt_count)
 	{
 		entry = *(uint8_t**)vec_get(entries, i);
-		write(STDOUT_FILENO, entry, entry_size);
-		write(STDOUT_FILENO, "\n", 1);
+		if (-1 == write(STDOUT_FILENO, entry, entry_size)
+			|| write(STDOUT_FILENO, "\n", 1))
+			return (-1);
 		i++;
 	}
+	return (0);
 }
