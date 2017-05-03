@@ -18,6 +18,8 @@
 ** TODO: don't add duplicates to the held_entries
 ** TODO: show all entries function
 ** TODO: add default save loc
+** TODO: reject duplicate field names
+** TODO: reject field count < 1
 */
 
 char	*g_error;

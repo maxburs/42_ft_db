@@ -6,7 +6,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceRoot}/ft_db",
-			"args": ["test_db"],
+			"args": [],
 			"stopAtEntry": true,
 			"cwd": "${workspaceRoot}",
 			"environment": [],
