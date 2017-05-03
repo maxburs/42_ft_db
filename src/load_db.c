@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/01 18:20:41 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/01 18:28:16 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ static int get_head_count(struct s_header *header)
 	ft_putstr("How many entries?\n");
 	get_next_line(&line);
 	n = ft_atoi(line);
-	header->entry_size = n;
-
 	ft_putstr("How many fields?\n");
 	get_next_line(&line);
 	n = ft_atoi(line);

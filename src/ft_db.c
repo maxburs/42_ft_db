@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/01 18:23:53 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/01 19:41:34 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 ** BUG: SET is busted add is broken?
 ** TODO: say when get returns nothing
 ** TODO: change entries to held_entries in your functions
+** TODO: don't add duplicates to the held_entries
+** TODO: show all entries function
 */
 
 int		main(int argc, char **argv)
