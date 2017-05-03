@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/03 15:23:39 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/03 15:53:11 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int			execute_command(struct s_header *header,
 		return (delete(header, command, entries, db));
 	else if (command.type == FILTER)
 		return (filter(header, command, entries));
+	else if(command.type == SHOW)
+	{
+		print_entries(header->entry_size, db);
+		return (1);
+	}
 	else
 	{
 		g_error = "ERROR: bad command type\n";

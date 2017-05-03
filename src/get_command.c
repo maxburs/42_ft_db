@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 14:04:53 by rle               #+#    #+#             */
-/*   Updated: 2017/05/03 15:32:36 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/03 15:54:17 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int		get_command_type(char *line, struct s_command *command)
 		command->type = DELETE;
 	if (compare_string(line, "FILTER"))
 		command->type = FILTER;
+	if (compare_string(line, "SHOW"))
+		command->type = SHOW;
 	if (command->type == NONE)
 		return (0);
 	return (1);
@@ -129,7 +131,7 @@ int			get_next_command(struct s_command *command, struct s_header *header)
 	if (get_command_type(line, command))
 	{
 		if (command->type == CLOSE || command->type == CLEAR \
-			|| command->type == DELETE)
+			|| command->type == DELETE || command->type == SHOW)
 			return (1);
 		if (-1 == get_field(line, header, &command->field))
 		{
