@@ -121,7 +121,7 @@ int			execute_command(struct s_header *header,
 		return (delete(header, command, entries, db));
 	else
 	{
-		ft_putstr_fd("ERROR: bad command type\n", STDERR_FILENO);
+		g_error = "ERROR: bad command type\n";
 		return (-1);
 	}
 }

@@ -131,12 +131,12 @@ int			get_next_command(struct s_command *command, struct s_header *header)
 			return (1);
 		if (-1 == get_field(line, header, &command->field))
 		{
-			ft_putstr("Invalid field\n");
+			puts("Invalid field\n");
 			return (get_next_command(command, header));
 		}
 		if (value_size(line) > header->fields[command->field].value_size)
 		{
-			ft_putstr("Value size is too large\n");
+			puts("Value size is too large\n");
 			return (get_next_command(command, header));
 		}
 		if (!get_value(line, command, header))
@@ -145,7 +145,7 @@ int			get_next_command(struct s_command *command, struct s_header *header)
 	}
 	else
 	{
-		ft_putstr("Bad Command\n");
+		puts("Bad Command\n");
 		free(line);
 		return (get_next_command(command, header));
 	}

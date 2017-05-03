@@ -20,8 +20,13 @@
 # include <libft.h>
 # include <stdint.h>
 # include <stdlib.h>
+# include <stdio.h>
+# include <errno.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
-enum	e_ctype
+enum			e_ctype
 {
 	NONE = 0,
 	CLOSE,
@@ -32,14 +37,14 @@ enum	e_ctype
 	CLEAR
 };
 
-struct	s_command
+struct			s_command
 {
 	enum e_ctype	type;
 	uint64_t		field;
 	void			*value;
 };
 
-struct	s_field
+struct			s_field
 {
 	void		*name;
 	uint64_t	name_size;
@@ -47,18 +52,28 @@ struct	s_field
 	uint64_t	value_size;
 };
 
-struct	s_header
+struct			s_header
 {
 	uint64_t		entry_size;
 	uint64_t		field_count;
 	struct s_field	*fields;
 };
 
-int		load_db(struct s_header *header, t_vec *db, int argc, char **argv);
-int		get_next_command(struct s_command *command, struct s_header *header);
-int		execute_command(struct s_header *header, struct s_command command,
-			t_vec *entries, t_vec *db);
-void	print_entries(size_t entry_size, t_vec *entries);
-int		get_next_line(char **next_line);
+extern char		*g_error;
+
+int				get_next_command(struct s_command *command,
+					struct s_header *header);
+int				execute_command(struct s_header *header, struct s_command
+					command, t_vec *entries, t_vec *db);
+void			print_entries(size_t entry_size, t_vec *entries);
+int				get_next_line(char **next_line);
+
+/*
+** load_db/
+*/
+int				load_db(struct s_header *header, t_vec *db, int argc,
+					char **argv);
+int				new_db(struct s_header *header, t_vec *db);
+int				open_db(struct s_header *header, t_vec *db, int fd);
 
 #endif

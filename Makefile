@@ -19,10 +19,14 @@ SRC = \
 	$(addprefix src/, \
 		execute_command.c \
 		ft_db.c \
-		load_db.c \
 		get_command.c \
 		print_entries.c \
 		get_next_line.c \
+		$(addprefix load_db/, \
+			load_db.c \
+			new_db.c \
+			open_db.c \
+		) \
 		$(addprefix vector/, \
 			vec_add.c \
 			vec_del.c \

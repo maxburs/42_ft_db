@@ -14,18 +14,17 @@
 
 #define VALUE_SIZE	100
 
-
 static int get_head_count(struct s_header *header)
 {
 	int n;
 	char *line;
 
-	ft_putstr("How many entries?\n");
+	puts("How many entries?\n");
 	get_next_line(&line);
 	n = ft_atoi(line);
 	header->entry_size = n;
 
-	ft_putstr("How many fields?\n");
+	puts("How many fields?\n");
 	get_next_line(&line);
 	n = ft_atoi(line);
 	header->field_count = n;
@@ -34,7 +33,7 @@ static int get_head_count(struct s_header *header)
 	return (0);
 }
 
-static int	new_db(struct s_header *header, t_vec *db)
+int			new_db(struct s_header *header, t_vec *db)
 {
 	int i;
 	int value_size;
@@ -46,13 +45,13 @@ static int	new_db(struct s_header *header, t_vec *db)
 	header->entry_size = 0;
 	while (i < (int)header->field_count)
 	{
-		ft_putstr("Field ");
+		puts("Field ");
 		ft_putnbr(i + 1);
-		ft_putstr("?\n");
+		puts("?\n");
 		get_next_line(&line);
 		header->fields[i].name = line;
 		header->fields[i].name_size = ft_strlen(header->fields[i].name);
-		ft_putstr("Value size?\n");
+		puts("Value size?\n");
 		get_next_line(&line);
 		value_size = ft_atoi(line);
 		if (i == 0)
@@ -67,14 +66,5 @@ static int	new_db(struct s_header *header, t_vec *db)
 	vec_add(db, "bob\0\0blue\0");
 	vec_add(db, "sam\0\0red\0\0");
 	vec_add(db, "foo\0\0bar\0\0");
-	return (0);
-}
-
-int			load_db(struct s_header *header, t_vec *db,
-			int argc, char **argv)
-{
-	(void)(argc);
-	(void)(argv);
-	new_db(header, db);
 	return (0);
 }
