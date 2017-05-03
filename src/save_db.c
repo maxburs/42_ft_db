@@ -12,11 +12,21 @@
 
 #include <ft_db.h>
 
+/*
+** db format:
+** header
+** fields
+** names
+** db struct
+** db data
+*/
+
 int				save_db(struct s_header *header, t_vec *db, int argc,
 					char **argv)
 {
 	int			fd;
 	ssize_t		size;
+	size_t		i;
 
 	if (argc == 1)
 		return (0);
@@ -44,8 +54,19 @@ int				save_db(struct s_header *header, t_vec *db, int argc,
 		g_error = "not everything got written\?\?";
 		return (-1);
 	}
-	
-	//TODO: save names
+
+	i = 0;
+	while (i < header->field_count)
+	{
+		if (-1 == (size = write(fd, header->fields[i].name, header->fields[i].name_size)))
+			return (-1);
+		if ((size_t)size != header->fields[i].name_size)
+		{
+			g_error = "not everything got written\?\?";
+			return (-1);
+		}
+		i++;
+	}
 
 	if (-1 == (size = write(fd, db, sizeof(*db))))
 		return (-1);

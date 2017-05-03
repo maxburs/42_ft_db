@@ -17,5 +17,5 @@
 void	vec_del(t_vec *vector)
 {
 	free(vector->data);
-	ft_bzero(vector, sizeof(*vector));
+	bzero(vector, sizeof(*vector));
 }

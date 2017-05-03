@@ -17,6 +17,7 @@
 int		open_db(struct s_header *header, t_vec *db, int fd)
 {
 	ssize_t		size;
+	size_t		i;
 
 	if (-1 == (size = read(fd, header, sizeof(*header))))
 		return (-1);
@@ -39,7 +40,18 @@ int		open_db(struct s_header *header, t_vec *db, int fd)
 		return (-1);
 	}
 
-	//TODO: load names
+	i = 0;
+	while (i < header->field_count)
+	{
+		if (-1 == (size = read(fd, header->fields[i].name, header->fields[i].name_size)))
+			return (-1);
+		if ((size_t)size != header->fields[i].name_size)
+		{
+			g_error = "not everything got written\?\?";
+			return (-1);
+		}
+		i++;
+	}
 
 	size = read(fd, db, sizeof(*db));
 	if (-1 == size)

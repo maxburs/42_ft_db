@@ -49,7 +49,7 @@ int				main(int argc, char **argv)
 	while (true)
 	{
 		if (-1 == get_next_command(&command, &header)
-			|| command.type == CLOSE
+			|| command.type == CLOSE //change how we handle close
 			|| -1 == execute_command(&header, command, &held_entries, &db))
 		{
 			print_error();
