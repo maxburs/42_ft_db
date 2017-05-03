@@ -43,11 +43,11 @@ int		get_command_type(char *line, struct s_command *command)
 	return (1);
 }
 
-int		get_field(char *line, struct s_header *header)
+int			get_field(char *line, struct s_header *header, uint64_t *field_type)
 {
-	int		i;
-	int		j;
-	char	*field;
+	uint64_t	i;
+	int			j;
+	char		*field;
 
 	j = 0;
 	i = 0;
@@ -65,13 +65,16 @@ int		get_field(char *line, struct s_header *header)
 		field[j++] = line[i++];
 	field[j] = '\0';
 	i = -1;
-	while (++i < (int)header->field_count)
+	while (++i < header->field_count)
 		if (compare_string(header->fields[i].name, field))
-			return (i);
+		{
+			*field_type = i;
+			return (0);
+		}
 	return (-1);
 }
 
-int		get_value(char *line, struct s_command *command,
+int			get_value(char *line, struct s_command *command,
 	struct s_header *header)
 {
 	int i;
@@ -95,7 +98,7 @@ int		get_value(char *line, struct s_command *command,
 	return (1);
 }
 
-size_t	value_size(char *line)
+uint64_t	value_size(char *line)
 {
 	int i;
 	int j;
@@ -114,7 +117,7 @@ size_t	value_size(char *line)
 	return (j);
 }
 
-int		get_next_command(struct s_command *command, struct s_header *header)
+int			get_next_command(struct s_command *command, struct s_header *header)
 {
 	char *line;
 
@@ -126,14 +129,14 @@ int		get_next_command(struct s_command *command, struct s_header *header)
 		if (command->type == CLOSE || command->type == CLEAR \
 			|| command->type == DELETE)
 			return (1);
-		if (-1 == (command->field = get_field(line, header)))
+		if (-1 == get_field(line, header, &command->field))
 		{
-			ft_putstr("Invalid field\n");
+			puts("Invalid field\n");
 			return (get_next_command(command, header));
 		}
 		if (value_size(line) > header->fields[command->field].value_size)
 		{
-			ft_putstr("Value size is too large\n");
+			puts("Value size is too large\n");
 			return (get_next_command(command, header));
 		}
 		if (!get_value(line, command, header))
@@ -142,7 +145,7 @@ int		get_next_command(struct s_command *command, struct s_header *header)
 	}
 	else
 	{
-		ft_putstr("Bad Command\n");
+		puts("Bad Command\n");
 		free(line);
 		return (get_next_command(command, header));
 	}

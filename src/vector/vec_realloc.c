@@ -22,7 +22,7 @@ int				vec_realloc(t_vec *vec, size_t new_size)
 		return (-1);
 	if (NULL == (new_data = malloc(vec->elmnt_size * new_size)))
 		return (-1);
-	ft_memcpy(new_data, vec->data, vec->elmnt_size * vec->elmnt_count);
+	memcpy(new_data, vec->data, vec->elmnt_size * vec->elmnt_count);
 	free(vec->data);
 	vec->elmnt_max = new_size;
 	vec->data = new_data;

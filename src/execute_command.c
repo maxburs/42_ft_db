@@ -22,7 +22,7 @@ static int	get(struct s_header *header, struct s_command cmd,
 	while (i < db->elmnt_count)
 	{
 		entry = vec_get(db, i);
-		if (0 == ft_memcmp(entry + header->fields[cmd.field].offset,
+		if (0 == memcmp(entry + header->fields[cmd.field].offset,
 			cmd.value, header->fields[cmd.field].value_size))
 		{
 			if (-1 == vec_add(entries, &entry))
@@ -60,7 +60,7 @@ static int	set(struct s_header *header, struct s_command cmd,
 	while (i < entries->elmnt_count)
 	{
 		entry = *(uint8_t**)vec_get(entries, i);
-		ft_memcpy(entry + header->fields[cmd.field].offset,
+		memcpy(entry + header->fields[cmd.field].offset,
 			cmd.value, header->fields[cmd.field].value_size);
 		i++;
 	}
@@ -98,8 +98,8 @@ static int	add(struct s_header *header, struct s_command cmd,
 	}
 	db->elmnt_count++;
 	entry = vec_get(db, entries->elmnt_count - 1);
-	ft_bzero(entry, header->entry_size);
-	ft_memcpy(entry + header->fields[cmd.field].offset,
+	bzero(entry, header->entry_size);
+	memcpy(entry + header->fields[cmd.field].offset,
 		cmd.value, header->fields[cmd.field].value_size);
 	if (-1 == vec_add(entries, &entry))
 		return (-1);
@@ -121,7 +121,7 @@ int			execute_command(struct s_header *header,
 		return (delete(header, command, entries, db));
 	else
 	{
-		ft_putstr_fd("ERROR: bad command type\n", STDERR_FILENO);
+		g_error = "ERROR: bad command type\n";
 		return (-1);
 	}
 }

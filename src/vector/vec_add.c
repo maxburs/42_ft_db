@@ -22,7 +22,7 @@ int				vec_add(t_vec *vector, void *element)
 			vector->elmnt_max * VECTOR_INCREASE_RATIO))
 			return (-1);
 	}
-	ft_memcpy(vector->data_end, element, vector->elmnt_size);
+	memcpy(vector->data_end, element, vector->elmnt_size);
 	vector->data_end += vector->elmnt_size;
 	vector->elmnt_count++;
 	return (0);
