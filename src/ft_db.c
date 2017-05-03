@@ -46,15 +46,20 @@ int				main(int argc, char **argv)
 	}
 	while (true)
 	{
-		if (-1 == get_next_command(&command, &header)
-			|| command.type == CLOSE //change how we handle close
-			|| -1 == execute_command(&header, command, &held_entries, &db))
+		if (-1 == get_next_command(&command, &header))
 		{
 			print_error();
 			break ;
 		}
-		free(command.value);
-		print_entries(header.entry_size, &held_entries);
+		if (command.type == CLOSE)
+			break ;
+		if (-1 == execute_command(&header, command, &held_entries, &db)
+			|| -1 == print_entries(header.entry_size, &held_entries))
+		{
+			print_error();
+			break ;
+		}
+		ft_memdel(command.value);
 	}
 	if (-1 == save_db(&header, &db, argc, argv))
 		print_error();
