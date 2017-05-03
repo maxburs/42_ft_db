@@ -22,6 +22,7 @@
 ** TODO: change entries to held_entries in your functions
 ** TODO: don't add duplicates to the held_entries
 ** TODO: show all entries function
+** TODO: add default save loc
 */
 
 char	*g_error;

@@ -21,7 +21,7 @@ int			vec_init(t_vec *vector, size_t elmnt_size)
 		return (-1);
 	vector->elmnt_size = elmnt_size;
 	vector->elmnt_count = 0;
-	vector->elmnt_max = elmnt_size * VECTOR_INITIAL_SIZE;
+	vector->elmnt_max = VECTOR_INITIAL_SIZE;
 	vector->data_end = vector->data;
 	return (0);
 }
