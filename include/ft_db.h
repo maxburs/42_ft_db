@@ -35,7 +35,7 @@ enum	e_ctype
 struct	s_command
 {
 	enum e_ctype	type;
-	size_t			field;
+	uint64_t		field;
 	void			*value;
 };
 
