@@ -43,6 +43,9 @@ int		open_db(struct s_header *header, t_vec *db, int fd)
 	i = 0;
 	while (i < header->field_count)
 	{
+		header->fields[i].name = malloc(header->fields[i].name_size);
+		if (NULL == header->fields[i].name)
+			return (-1);
 		if (-1 == (size = read(fd, header->fields[i].name, header->fields[i].name_size)))
 			return (-1);
 		if ((size_t)size != header->fields[i].name_size)
