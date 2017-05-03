@@ -67,6 +67,8 @@ int				execute_command(struct s_header *header, struct s_command
 					command, t_vec *entries, t_vec *db);
 void			print_entries(size_t entry_size, t_vec *entries);
 int				get_next_line(char **next_line);
+int				save_db(struct s_header *header, t_vec *db, int argc,
+					char **argv);
 
 /*
 ** load_db/

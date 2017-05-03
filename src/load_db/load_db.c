@@ -23,7 +23,7 @@ int			load_db(struct s_header *header, t_vec *db, int argc, char **argv)
 		fd = open(argv[1], O_RDONLY);
 		if (-1 == fd)
 		{
-			if (errno = 2)
+			if (errno == 2)
 			{
 				errno = 0;
 				return (new_db(header, db));

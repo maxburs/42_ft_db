@@ -20,8 +20,9 @@ SRC = \
 		execute_command.c \
 		ft_db.c \
 		get_command.c \
-		print_entries.c \
 		get_next_line.c \
+		print_entries.c \
+		save_db.c \
 		$(addprefix load_db/, \
 			load_db.c \
 			new_db.c \

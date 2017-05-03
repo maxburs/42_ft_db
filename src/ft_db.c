@@ -58,6 +58,8 @@ int				main(int argc, char **argv)
 		free(command.value);
 		print_entries(header.entry_size, &held_entries);
 	}
+	if (-1 == save_db(&header, &db, argc, argv))
+		print_error();
 	free(command.value);
 	vec_del(&db);
 	vec_del(&held_entries);
