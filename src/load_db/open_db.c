@@ -68,9 +68,9 @@ int		open_db(struct s_header *header, t_vec *db, int fd)
 	db->elmnt_max = db->elmnt_count * (1 + DB_OVERHEAD_PERCENT);
 	if (NULL == (db->data = malloc(db->elmnt_size * db->elmnt_max)))
 		return (-1);
-	if (-1 == (size = read(fd, db->data, db->elmnt_size * db->elmnt_max)))
+	if (-1 == (size = read(fd, db->data, db->elmnt_size * db->elmnt_count)))
 		return (-1);
-	if ((size_t)size != db->elmnt_size * db->elmnt_max)
+	if ((size_t)size != db->elmnt_size * db->elmnt_count)
 	{
 		g_error = "BAD FILE";
 		return (-1);
