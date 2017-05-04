@@ -22,7 +22,7 @@ int	add(struct s_header *header, struct s_command cmd,
 		if (-1 == vec_realloc(db, db->elmnt_max * VECTOR_INCREASE_RATIO))
 			return (-1);
 	}
-	db->elmnt_count++;
+	db->elmnt_count++; //TODO: is it ok not to update data_end?
 	entry = vec_get(db, db->elmnt_count - 1);
 	bzero(entry, header->entry_size);
 	memcpy(entry + header->fields[cmd.field].offset,

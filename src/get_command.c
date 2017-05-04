@@ -40,8 +40,6 @@ int		get_command_type(char *line, struct s_command *command)
 		command->type = DELETE;
 	if (compare_string(line, "FILTER"))
 		command->type = FILTER;
-	if (compare_string(line, "SHOW"))
-		command->type = SHOW;
 	if (command->type == NONE)
 		return (0);
 	return (1);
@@ -132,7 +130,7 @@ int			get_next_command(struct s_command *command, struct s_header *header)
 	if (get_command_type(line, command))
 	{
 		if (command->type == CLOSE || command->type == CLEAR \
-			|| command->type == DELETE || command->type == SHOW)
+			|| command->type == DELETE)
 			return (1);
 		if (-1 == get_field(line, header, &command->field))
 		{

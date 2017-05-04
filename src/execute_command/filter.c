@@ -26,7 +26,6 @@ int filter(struct s_header *header, struct s_command cmd,
 			cmd.value, header->fields[cmd.field].value_size))
 		{
 			vec_rm(entries, i);
-			entries->elmnt_count--;
 		}
 		i++;
 	}

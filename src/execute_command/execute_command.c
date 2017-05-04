@@ -27,11 +27,6 @@ int			execute_command(struct s_header *header,
 		return (delete(header, command, entries, db));
 	else if (command.type == FILTER)
 		return (filter(header, command, entries));
-	else if(command.type == SHOW)
-	{
-		print_entries(header->entry_size, db);
-		return (1);
-	}
 	else
 	{
 		g_error = "ERROR: bad command type\n";

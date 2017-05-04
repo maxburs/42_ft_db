@@ -20,6 +20,8 @@
 ** TODO: add default save loc
 ** TODO: reject duplicate field names
 ** TODO: reject field count < 1
+** 
+** BUG: after filter held_entries element count is off
 */
 
 char	*g_error;
@@ -30,7 +32,6 @@ static void		print_error(void)
 		dprintf(STDERR_FILENO, "ERROR: %s\n", g_error);
 	else
 		perror("ERROR");
-	printf("errno: %d\n", errno);
 }
 
 int				main(int argc, char **argv)
@@ -60,12 +61,18 @@ int				main(int argc, char **argv)
 			|| -1 == print_entries(header.entry_size, &held_entries))
 		{
 			print_error();
-			break ;
+			vec_del(&db);
+			vec_del(&held_entries);
+			free(header.fields);
+			return (1);
 		}
 		//ft_memdel(command.value);
 	}
 	if (-1 == save_db(&header, &db, argc, argv))
+	{
 		print_error();
+		return (1);
+	}
 	free(command.value);
 	vec_del(&db);
 	vec_del(&held_entries);

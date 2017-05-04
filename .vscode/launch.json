@@ -7,7 +7,7 @@
 			"request": "launch",
 			"program": "${workspaceRoot}/ft_db",
 			"args": [],
-			"stopAtEntry": true,
+			"stopAtEntry": false,
 			"cwd": "${workspaceRoot}",
 			"environment": [],
 			"externalConsole": true,

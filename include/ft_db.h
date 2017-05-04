@@ -35,7 +35,7 @@ enum			e_ctype
 	ADD,
 	DELETE,
 	FILTER,
-	SHOW,
+	GETALL,
 	CLEAR
 };
 
