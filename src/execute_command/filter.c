@@ -27,7 +27,8 @@ int filter(struct s_header *header, struct s_command cmd,
 		{
 			vec_rm(entries, i);
 		}
-		i++;
+		else
+			i++;
 	}
 	return (0);
 }
