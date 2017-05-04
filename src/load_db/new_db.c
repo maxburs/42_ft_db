@@ -41,7 +41,7 @@ int			new_db(struct s_header *header, t_vec *db)
 	while (i < (int)header->field_count)
 	{
 		printf("Field %i?\n", i + 1);
-		get_next_line(&line);
+		get_next_line(&line); //handle gnl errors
 		header->fields[i].name = line;
 		header->fields[i].name_size = ft_strlen(header->fields[i].name);
 		puts("Value size?");

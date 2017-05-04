@@ -22,7 +22,7 @@ int		print_entries(size_t entry_size, t_vec *entries)
 	{
 		entry = *(uint8_t**)vec_get(entries, i);
 		if (-1 == write(STDOUT_FILENO, entry, entry_size)
-			|| write(STDOUT_FILENO, "\n", 1))
+			|| -1 == write(STDOUT_FILENO, "\n", 1))
 			return (-1);
 		i++;
 	}

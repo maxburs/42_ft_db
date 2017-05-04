@@ -26,6 +26,11 @@ int		get_next_line(char **next_line)
 	{
 		if (-1 == (ret = read(0, buff, BUFF_SIZE)))
 		{
+			if (errno == 4)
+			{
+				errno = 0;
+				continue ;
+			}
 			free(lstr_finish(&line));
 			return (-1);
 		}

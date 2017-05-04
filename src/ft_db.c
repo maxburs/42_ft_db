@@ -30,6 +30,7 @@ static void		print_error(void)
 		dprintf(STDERR_FILENO, "ERROR: %s\n", g_error);
 	else
 		perror("ERROR");
+	printf("errno: %d\n", errno);
 }
 
 int				main(int argc, char **argv)
@@ -61,7 +62,7 @@ int				main(int argc, char **argv)
 			print_error();
 			break ;
 		}
-		ft_memdel(command.value);
+		//ft_memdel(command.value);
 	}
 	if (-1 == save_db(&header, &db, argc, argv))
 		print_error();

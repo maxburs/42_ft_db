@@ -23,7 +23,7 @@ int	add(struct s_header *header, struct s_command cmd,
 			return (-1);
 	}
 	db->elmnt_count++;
-	entry = vec_get(db, entries->elmnt_count - 1);
+	entry = vec_get(db, db->elmnt_count - 1);
 	bzero(entry, header->entry_size);
 	memcpy(entry + header->fields[cmd.field].offset,
 		cmd.value, header->fields[cmd.field].value_size);
