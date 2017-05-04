@@ -13,7 +13,6 @@
 #include <ft_db.h>
 
 /*
-** BUG: SET is busted add is broken?
 ** TODO: say when get returns nothing
 ** TODO: don't add duplicates to the held_entries
 ** TODO: show all entries function

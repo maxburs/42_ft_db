@@ -27,7 +27,7 @@ int	add(struct s_header *header, struct s_command cmd,
 	bzero(entry, header->entry_size);
 	memcpy(entry + header->fields[cmd.field].offset,
 		cmd.value, header->fields[cmd.field].value_size);
-	if (-1 == vec_add(entries, &entry))
+	if (-1 == vec_add(entries, &entry)) //is this is broken?
 		return (-1);
 	return (0);
 }
