@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/03 14:09:06 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/04 15:01:19 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ static int get_head_count(struct s_header *header)
 	puts("How many fields?");
 	get_next_line(&line);
 	n = ft_atoi(line);
+	while (n < 1)
+	{
+		puts("Fields must be greater than 0");
+		get_next_line(&line);
+		n = ft_atoi(line);
+	}
 	header->field_count = n;
 	if (NULL == (header->fields = malloc(sizeof(*header->fields) * n)))
 		return (-1);
@@ -47,6 +53,12 @@ int			new_db(struct s_header *header, t_vec *db)
 		puts("Value size?");
 		get_next_line(&line);
 		value_size = ft_atoi(line);
+		while (value_size < 0)
+		{
+			puts("Value size must be 0 or greater");
+			get_next_line(&line);
+			value_size = ft_atoi(line);
+		}
 		if (i == 0)
 			header->fields[i].offset = 0;
 		else

@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/03 15:50:43 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/04 15:01:54 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@
 ** BUG: SET is busted add is broken?
 ** TODO: say when get returns nothing
 ** TODO: don't add duplicates to the held_entries
-** TODO: show all entries function
+** TODO: GETALL function
 ** TODO: add default save loc
 ** TODO: reject duplicate field names
-** TODO: reject field count < 1
-** 
+** TODO: Broken filter/vec_get
 ** BUG: after filter held_entries element count is off
 */
 
