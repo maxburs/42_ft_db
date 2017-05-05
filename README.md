@@ -1,5 +1,5 @@
 Building a database
-===================
+
 Our program is able to get, set, add, and delete data in a database
 
 The database can be viewed as:
