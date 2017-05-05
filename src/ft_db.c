@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/04 15:01:54 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/04 21:53:31 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 /*
 ** TODO: say when get returns nothing
-** TODO: GETALL function -> added function, untested and needs to be added to get next command
 ** TODO: add default save loc
 ** TODO: reject duplicate field names
-**
+** TODO: Let user know if db is loading or initializing
 ** BUG: right now the default db save will overwrite the last one, need to generage new name if deafult exists (db, db(1), db(2), ...)
 */
 
@@ -54,7 +53,7 @@ static int		manip_db(struct s_header *header, t_vec *db)
 		}
 		if (command.type == CLOSE)
 			break ;
-		//ft_memdel(command.value);
+		ft_memdel(&command.value);
 	}
 	vec_del(&held_entries);
 	free(command.value);
@@ -66,6 +65,7 @@ int				main(int argc, char **argv)
 	struct s_header		header;
 	t_vec				db;
 	int					ret;
+	uint64_t 				i;
 
 	g_error = NULL;
 	ret = 0;
@@ -77,6 +77,12 @@ int				main(int argc, char **argv)
 		ret = 1;
 	}
 	vec_del(&db);
+	i = 0;
+	while (i < header.field_count)
+	{
+		free(header.fields[i].name);
+		i++;
+	}
 	free(header.fields);
 	return (ret);
 }

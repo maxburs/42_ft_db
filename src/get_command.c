@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 14:04:53 by rle               #+#    #+#             */
-/*   Updated: 2017/05/03 15:54:17 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/04 22:08:15 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int		get_command_type(char *line, struct s_command *command)
 		command->type = DELETE;
 	if (compare_string(line, "FILTER"))
 		command->type = FILTER;
+	if (compare_string(line, "GETALL"))
+		command->type = GETALL;
 	if (command->type == NONE)
 		return (0);
 	return (1);
@@ -130,25 +132,34 @@ int			get_next_command(struct s_command *command, struct s_header *header)
 	if (get_command_type(line, command))
 	{
 		if (command->type == CLOSE || command->type == CLEAR \
-			|| command->type == DELETE)
+			|| command->type == DELETE || command->type == GETALL)
+		{
+			free(line);
 			return (1);
+		}
 		if (-1 == get_field(line, header, &command->field))
 		{
-			puts("Invalid field\n");
+			write(1, "Invalid field\n", 14);
+			free(line);
 			return (get_next_command(command, header));
 		}
 		if (value_size(line) > header->fields[command->field].value_size)
 		{
-			puts("Value size is too large\n");
+			free(line);
+			write(1, "Value size is too large\n", 24);
 			return (get_next_command(command, header));
 		}
 		if (!get_value(line, command, header))
+		{
+			free(line);
 			return (-1);
+		}
+		free(line);
 		return (1);
 	}
 	else
 	{
-		puts("Bad Command\n");
+		write(1, "Bad Command\n", 12);
 		free(line);
 		return (get_next_command(command, header));
 	}

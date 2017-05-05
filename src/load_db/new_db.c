@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/04 15:01:19 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/04 22:07:50 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,16 @@ static int get_head_count(struct s_header *header)
 	int n;
 	char *line;
 
-	puts("How many fields?");
+	write(1, "How many fields?\n", 17);
 	get_next_line(&line);
 	n = ft_atoi(line);
+	free(line);
 	while (n < 1)
 	{
-		puts("Fields must be greater than 0");
+		write(1, "Fields must be greater than 0\n", 30);
 		get_next_line(&line);
 		n = ft_atoi(line);
+		free(line);
 	}
 	header->field_count = n;
 	if (NULL == (header->fields = malloc(sizeof(*header->fields) * n)))
@@ -37,6 +39,7 @@ static int get_head_count(struct s_header *header)
 int			new_db(struct s_header *header, t_vec *db)
 {
 	int i;
+	int j;
 	int value_size;
 	char *line;
 
@@ -47,17 +50,30 @@ int			new_db(struct s_header *header, t_vec *db)
 	while (i < (int)header->field_count)
 	{
 		printf("Field %i?\n", i + 1);
-		get_next_line(&line); //handle gnl errors
+		get_next_line(&line);
+		j = 0;	
+		while (j < i)
+		{
+			if (0 == ft_strcmp(header->fields[j].name, line))
+			{
+				free(line);
+				write(1, "Field already exists\n", 21);
+			}
+			get_next_line(&line);
+			j++;
+		}
 		header->fields[i].name = line;
 		header->fields[i].name_size = ft_strlen(header->fields[i].name);
 		puts("Value size?");
 		get_next_line(&line);
 		value_size = ft_atoi(line);
+		free(line);
 		while (value_size < 0)
 		{
-			puts("Value size must be 0 or greater");
+			write(1, "Value size must be 0 or greater\n", 32);
 			get_next_line(&line);
 			value_size = ft_atoi(line);
+			free(line);
 		}
 		if (i == 0)
 			header->fields[i].offset = 0;
