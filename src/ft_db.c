@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/04 22:11:11 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/04 22:21:41 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int		manip_db(struct s_header *header, t_vec *db)
 	{
 		if (-1 == get_next_command(&command, header)
 			|| -1 == execute_command(header, command, &held_entries, db)
-			|| -1 == print_entries(header->entry_size, &held_entries))
+			|| -1 == print_entries(header, header->entry_size, &held_entries))
 		{
 			ret = 1;
 			break ;
