@@ -26,17 +26,19 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+# define COMMAND_COUNT 9
+
 enum			e_ctype
 {
 	NONE = 0,
-	CLOSE,
-	GET,
-	SET,
-	ADD,
-	DELETE,
-	FILTER,
-	GETALL,
-	CLEAR
+	CLOSE = 1,
+	GET = 2,
+	SET = 3,
+	ADD = 4,
+	DELETE = 5,
+	FILTER = 6,
+	GETALL = 7,
+	CLEAR = 8
 };
 
 struct			s_command

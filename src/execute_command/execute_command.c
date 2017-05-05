@@ -12,9 +12,55 @@
 
 #include <ft_db.h>
 
+
+static int	none(struct s_header *header, struct s_command cmd,
+					t_vec *entries, t_vec *db)
+{
+	(void)(header);
+	(void)(cmd);
+	(void)(entries);
+	(void)(db);
+	return (0);
+}
+
+static int	getall(struct s_header *header, struct s_command cmd,
+					t_vec *entries, t_vec *db)
+{
+	(void)(header);
+	(void)(cmd);
+	(void)(entries);
+	(void)(db);
+	return (0);
+}
+
+static int	close_cmd(struct s_header *header, struct s_command cmd,
+					t_vec *entries, t_vec *db)
+{
+	(void)(header);
+	(void)(cmd);
+	(void)(entries);
+	(void)(db);
+	return (0);
+}
+
+static int	(*const commands[])(struct s_header *header, struct s_command cmd,
+				t_vec *entries, t_vec *db) =
+{
+	&none,
+	&close_cmd,
+	&get,
+	&set,
+	&add,
+	&delete,
+	&filter,
+	&getall,
+	&clear
+};
+
 int			execute_command(struct s_header *header,
 				struct s_command command, t_vec *entries, t_vec *db)
 {
+	/*
 	if (command.type == GET)
 		return (get(header, command, entries, db));
 	else if (command.type == CLEAR)
@@ -27,6 +73,9 @@ int			execute_command(struct s_header *header,
 		return (delete(header, command, entries, db));
 	else if (command.type == FILTER)
 		return (filter(header, command, entries, db));
+	*/
+	if (command.type < COMMAND_COUNT)
+		return (commands[command.type](header, command, entries, db));
 	else
 	{
 		g_error = "ERROR: bad command type\n";
