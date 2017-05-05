@@ -12,7 +12,6 @@
 
 #include <ft_db.h>
 
-
 static int	none(struct s_header *header, struct s_command cmd,
 					t_vec *entries, t_vec *db)
 {
@@ -23,7 +22,7 @@ static int	none(struct s_header *header, struct s_command cmd,
 	return (0);
 }
 
-static int	(*const commands[])(struct s_header *header, struct s_command cmd,
+static int	(*const g_commands[])(struct s_header *header, struct s_command cmd,
 				t_vec *entries, t_vec *db) =
 {
 	&none,
@@ -41,7 +40,7 @@ int			execute_command(struct s_header *header,
 				struct s_command command, t_vec *entries, t_vec *db)
 {
 	if (command.type < COMMAND_COUNT)
-		return (commands[command.type](header, command, entries, db));
+		return (g_commands[command.type](header, command, entries, db));
 	else
 	{
 		g_error = "ERROR: bad command type\n";

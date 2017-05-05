@@ -12,7 +12,7 @@
 
 #include <ft_db.h>
 
-int delete(struct s_header *header, struct s_command cmd, 
+int		delete(struct s_header *header, struct s_command cmd,
 					t_vec *entries, t_vec *db)
 {
 	size_t	i;
