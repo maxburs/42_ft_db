@@ -23,57 +23,23 @@ static int	none(struct s_header *header, struct s_command cmd,
 	return (0);
 }
 
-static int	getall(struct s_header *header, struct s_command cmd,
-					t_vec *entries, t_vec *db)
-{
-	(void)(header);
-	(void)(cmd);
-	(void)(entries);
-	(void)(db);
-	return (0);
-}
-
-static int	close_cmd(struct s_header *header, struct s_command cmd,
-					t_vec *entries, t_vec *db)
-{
-	(void)(header);
-	(void)(cmd);
-	(void)(entries);
-	(void)(db);
-	return (0);
-}
-
 static int	(*const commands[])(struct s_header *header, struct s_command cmd,
 				t_vec *entries, t_vec *db) =
 {
 	&none,
-	&close_cmd,
+	&none,
 	&get,
 	&set,
 	&add,
 	&delete,
 	&filter,
-	&getall,
+	&none,
 	&clear
 };
 
 int			execute_command(struct s_header *header,
 				struct s_command command, t_vec *entries, t_vec *db)
 {
-	/*
-	if (command.type == GET)
-		return (get(header, command, entries, db));
-	else if (command.type == CLEAR)
-		return (clear(header, command, entries, db));
-	else if (command.type == SET)
-		return (set(header, command, entries, db));
-	else if (command.type == ADD)
-		return (add(header, command, entries, db));
-	else if(command.type == DELETE)
-		return (delete(header, command, entries, db));
-	else if (command.type == FILTER)
-		return (filter(header, command, entries, db));
-	*/
 	if (command.type < COMMAND_COUNT)
 		return (commands[command.type](header, command, entries, db));
 	else

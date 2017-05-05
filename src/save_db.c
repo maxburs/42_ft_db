@@ -35,7 +35,7 @@ int				save_db(struct s_header *header, t_vec *db, int argc,
 		g_error = "bad useage in save (how did this even happen\?\?)";
 		return (-1);
 	}
-	if (-1 == (fd = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC)))
+	if (-1 == (fd = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, 0666)))
 		return (-1);
 
 	if (-1 == (size = write(fd, header, sizeof(*header))))
