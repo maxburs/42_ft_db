@@ -17,8 +17,6 @@
 ** TODO: GETALL function -> added function, untested and needs to be added to get next command
 ** TODO: add default save loc
 ** TODO: reject duplicate field names
-**
-** BUG: vec_add does resize properly (breaks when adding 5th element)
 */
 
 char	*g_error;

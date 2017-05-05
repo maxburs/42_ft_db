@@ -12,15 +12,30 @@
 
 #include <ft_db.h>
 
-int	add(struct s_header *header, struct s_command cmd,
+static void		repoint(t_vec *entries, t_vec *db, uint8_t *old_data)
+{
+	uint8_t		**entry;
+
+	entry = (uint8_t**)entries->data;
+	while (entry < (uint8_t**)entries->data_end)
+	{
+		*entry = vec_get(db, (*entry - old_data) / db->elmnt_size);
+		entry++;
+	}
+	entries->data_end = (void*)entry;
+}
+
+int				add(struct s_header *header, struct s_command cmd,
 				t_vec *entries, t_vec *db)
 {
 	uint8_t		*entry;
 
 	if (db->elmnt_count == db->elmnt_max)
 	{
+		entry = db->data;
 		if (-1 == vec_realloc(db, db->elmnt_max * VECTOR_INCREASE_RATIO))
 			return (-1);
+		repoint(entries, db, entry);
 	}
 	db->elmnt_count++;
 	db->data_end = (uint8_t*)db->data_end + db->elmnt_size;
