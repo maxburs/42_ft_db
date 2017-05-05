@@ -26,5 +26,7 @@ int		print_entries(size_t entry_size, t_vec *entries)
 			return (-1);
 		i++;
 	}
+	if (i == 0)
+		puts("(nothing held)");
 	return (0);
 }

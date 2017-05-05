@@ -13,12 +13,12 @@
 #include <ft_db.h>
 
 /*
-** TODO: say when get returns nothing
-** TODO: GETALL function -> added function, untested and needs to be added to get next command
-** TODO: add default save loc
+** TODO: GETALL function 
+**     -> added function, untested and needs to be added to get next command
 ** TODO: reject duplicate field names
 **
-** BUG: right now the default db save will overwrite the last one, need to generage new name if deafult exists (db, db(1), db(2), ...)
+** BUG: right now the default db save will overwrite the last one,
+**     need to generage new name if deafult exists (db, db(1), db(2), ...)
 */
 
 char	*g_error;
