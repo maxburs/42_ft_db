@@ -12,30 +12,41 @@
 
 #include <ft_db.h>
 
-int			load_db(struct s_header *header, t_vec *db, int argc, char **argv)
+static char		*pick_file(int argc, char **argv)
+{
+	if (argc == 1)
+		return (DEFAULT_FILE);
+	else if (argc == 2)
+		return (argv[1]);
+	else
+	{
+		g_error = "Usage: ft_db: [DATABASE FILE]";
+		return (NULL);
+	}
+}
+
+int				load_db(struct s_header *header, t_vec *db, int argc,
+					char **argv)
 {
 	int		fd;
+	char	*file;
 
-	if (argc == 1)
-		return (new_db(header, db));
-	else if (argc == 2)
+	if (NULL == (file = pick_file(argc, argv)))
+		return (-1);
+	fd = open(file, O_RDONLY);
+	if (-1 == fd)
 	{
-		fd = open(argv[1], O_RDONLY);
-		if (-1 == fd)
+		if (errno == 2)
 		{
-			if (errno == 2)
-			{
-				errno = 0;
-				return (new_db(header, db));
-			}
-			else
-				return (-1);
+			errno = 0;
+			return (new_db(header, db));
 		}
-		return (open_db(header, db, fd));
+		else
+			return (-1);
 	}
 	else
 	{
-		puts("Usage: ft_db: [DATABASE FILE]");
-		return (0);
+		printf("opening %s\n", file);
+		return (open_db(header, db, fd));
 	}
 }

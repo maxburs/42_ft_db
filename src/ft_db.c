@@ -6,18 +6,19 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/04 21:53:31 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/04 22:11:11 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_db.h>
 
 /*
-** TODO: say when get returns nothing
-** TODO: add default save loc
-** TODO: reject duplicate field names
 ** TODO: Let user know if db is loading or initializing
-** BUG: right now the default db save will overwrite the last one, need to generage new name if deafult exists (db, db(1), db(2), ...)
+** TODO: GETALL function 
+**     -> added function, untested and needs to be added to get next command
+**
+** BUG: right now the default db save will overwrite the last one,
+**     need to generage new name if deafult exists (db, db(1), db(2), ...)
 */
 
 char	*g_error;
