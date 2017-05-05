@@ -15,7 +15,6 @@
 int			execute_command(struct s_header *header,
 				struct s_command command, t_vec *entries, t_vec *db)
 {
-	uint8_t **entry;
 	if (command.type == GET)
 		return (get(header, command, entries, db));
 	else if (command.type == CLEAR)
@@ -27,13 +26,7 @@ int			execute_command(struct s_header *header,
 	else if(command.type == DELETE)
 		return (delete(header, command, entries, db));
 	else if (command.type == FILTER)
-	{
-		filter(header, command, entries);
-		//entry = *(uint8_t**)vec_get(entries, 0);
-		entry = (uint8_t**)((uint8_t*)entries->data + 0);
-		write(1, *entry, header->entry_size);
-		return (1);
-	}
+		return (filter(header, command, entries, db));
 	else
 	{
 		g_error = "ERROR: bad command type\n";

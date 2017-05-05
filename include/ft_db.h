@@ -90,7 +90,7 @@ int				clear(struct s_header *header, struct s_command cmd,
 int 			delete(struct s_header *header, struct s_command cmd, 
 					t_vec *entries, t_vec *db);
 int 			filter(struct s_header *header, struct s_command cmd,
-					t_vec *entries);
+					t_vec *entries, t_vec *db);
 int				get(struct s_header *header, struct s_command cmd,
 					t_vec *entries, t_vec *db);
 int				set(struct s_header *header, struct s_command cmd,
