@@ -19,6 +19,8 @@
 ** names
 ** db struct
 ** db data
+**
+** is casting ssize_t to size_t bad??
 */
 
 int				save_db(struct s_header *header, t_vec *db, int argc,
@@ -48,7 +50,6 @@ int				save_db(struct s_header *header, t_vec *db, int argc,
 
 	if (-1 == (size = write(fd, header->fields, sizeof(*header->fields) * header->field_count)))
 		return (-1);
-	//TODO: is this cast bad? how should I do this?
 	if ((size_t)size != sizeof(*header->fields) * header->field_count)
 	{
 		g_error = "not everything got written\?\?";

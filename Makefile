@@ -34,6 +34,7 @@ SRC = \
 			delete.c \
 			filter.c \
 			get.c \
+			getall.c \
 			set.c \
 		) \
 		$(addprefix vector/, \
@@ -43,6 +44,7 @@ SRC = \
 			vec_init.c \
 			vec_realloc.c \
 			vec_rm.c \
+			vec_set.c \
 		) \
 	)
 

@@ -95,6 +95,8 @@ int 			filter(struct s_header *header, struct s_command cmd,
 					t_vec *entries, t_vec *db);
 int				get(struct s_header *header, struct s_command cmd,
 					t_vec *entries, t_vec *db);
+int				getall(struct s_header *header, struct s_command cmd,
+					t_vec *entries, t_vec *db);
 int				set(struct s_header *header, struct s_command cmd,
 					t_vec *entries, t_vec *db);
 #endif

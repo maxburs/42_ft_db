@@ -10,31 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_H
-# define VECTOR_H
+#include <vector.h>
+#include <libft.h>
 
-# include <libft.h>
-# include <stdint.h>
-
-# define VECTOR_INITIAL_SIZE	4
-# define VECTOR_INCREASE_RATIO	2
-# define VECTOR_DECREASE_RATIO	6
-
-typedef struct	s_vector
+void		vec_set(t_vec *vector, size_t i, void *element)
 {
-	size_t		elmnt_size;
-	size_t		elmnt_count;
-	size_t		elmnt_max;
-	uint8_t		*data;
-	uint8_t		*data_end;
-}				t_vec;
+	void	*e;
 
-int				vec_add(t_vec *vector, void *element);
-void			vec_set(t_vec *vector, size_t i, void *element);
-void			vec_del(t_vec *vector);
-void			*vec_get(t_vec *vector, size_t index);
-int				vec_init(t_vec *vector, size_t elmnt_size);
-int				vec_realloc(t_vec *vec, size_t new_size);
-int				vec_rm(t_vec *vector, size_t index);
-
-#endif
+	e = vec_get(vector, i);
+	memcpy(e, element, vector->elmnt_size);
+}

@@ -12,12 +12,12 @@
 
 #include <ft_db.h>
 
-static _Bool	already_held(t_vec *entries, uint8_t *entry)
+static _Bool	already_held(t_vec *held_entries, uint8_t *entry)
 {
 	uint8_t		**held;
 
-	held = (uint8_t**)entries->data;
-	while (held < (uint8_t**)entries->data_end)
+	held = (uint8_t**)held_entries->data;
+	while (held < (uint8_t**)held_entries->data_end)
 	{
 		if (*held == entry)
 			return (true);

@@ -14,12 +14,11 @@
 
 /*
 ** TODO: say when get returns nothing
-** TODO: don't add duplicates to the held_entries
-** TODO: GETALL function
+** TODO: GETALL function -> added function, untested and needs to be added to get next command
 ** TODO: add default save loc
 ** TODO: reject duplicate field names
-** TODO: Broken filter/vec_get
-** BUG: after filter held_entries element count is off
+**
+** BUG: vec_add does resize properly (breaks when adding 5th element)
 */
 
 char	*g_error;
@@ -32,48 +31,52 @@ static void		print_error(void)
 		perror("ERROR");
 }
 
-int				main(int argc, char **argv)
+static int		manip_db(struct s_header *header, t_vec *db)
 {
-	struct s_header		header;
 	struct s_command	command;
-	t_vec				db;
 	t_vec				held_entries;
+	int					ret;
 
-	g_error = NULL;
-	if (-1 == load_db(&header, &db, argc, argv)
-		|| vec_init(&held_entries, sizeof(void*)))
+	ret = 0;
+	if (-1 == vec_init(&held_entries, sizeof(void*)))
 	{
 		print_error();
-		return (1);
+		return (-1);
 	}
 	while (true)
 	{
-		if (-1 == get_next_command(&command, &header))
+		if (-1 == get_next_command(&command, header)
+			|| -1 == execute_command(header, command, &held_entries, db)
+			|| -1 == print_entries(header->entry_size, &held_entries))
 		{
-			print_error();
+			ret = 1;
 			break ;
 		}
 		if (command.type == CLOSE)
 			break ;
-		if (-1 == execute_command(&header, command, &held_entries, &db)
-			|| -1 == print_entries(header.entry_size, &held_entries))
-		{
-			print_error();
-			vec_del(&db);
-			vec_del(&held_entries);
-			free(header.fields);
-			return (1);
-		}
 		//ft_memdel(command.value);
 	}
-	if (-1 == save_db(&header, &db, argc, argv))
+	vec_del(&held_entries);
+	free(command.value);
+	return (ret);
+}
+
+int				main(int argc, char **argv)
+{
+	struct s_header		header;
+	t_vec				db;
+	int					ret;
+
+	g_error = NULL;
+	ret = 0;
+	if (-1 == load_db(&header, &db, argc, argv)
+		|| -1 == manip_db(&header, &db)
+		|| -1 == save_db(&header, &db, argc, argv))
 	{
 		print_error();
-		return (1);
+		ret = 1;
 	}
-	free(command.value);
 	vec_del(&db);
-	vec_del(&held_entries);
 	free(header.fields);
-	return (0);
+	return (ret);
 }

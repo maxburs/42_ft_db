@@ -33,7 +33,7 @@ static int	(*const commands[])(struct s_header *header, struct s_command cmd,
 	&add,
 	&delete,
 	&filter,
-	&none,
+	&getall,
 	&clear
 };
 
