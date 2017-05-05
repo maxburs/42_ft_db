@@ -14,12 +14,11 @@
 
 #define BUFF_SIZE 64
 
-int		get_next_line(char **next_line)
+static t_lstr	*next_lstr(void)
 {
-	t_lstr	*line;
-	int		ret;
-	char	buff[BUFF_SIZE + 1];
-	char	*swap;
+	t_lstr		*line;
+	char		buff[BUFF_SIZE + 1];
+	ssize_t		ret;
 
 	line = NULL;
 	while (true)
@@ -32,13 +31,23 @@ int		get_next_line(char **next_line)
 				continue ;
 			}
 			free(lstr_finish(&line));
-			return (-1);
+			return (NULL);
 		}
 		buff[ret] = '\0';
 		lstr_add(&line, ft_strdup(buff), false);
 		if (ret == 0 || ft_strchr(buff, '\n'))
-			break ;
+			return (line);
 	}
+}
+
+int				get_next_line(char **next_line)
+{
+	t_lstr	*line;
+	char	*swap;
+
+	line = next_lstr();
+	if (line == NULL)
+		return (-1);
 	swap = lstr_finish(&line);
 	if (NULL == (*next_line = ft_strndup(swap, ft_strchr(swap, '\n') - swap)))
 		return (-1);

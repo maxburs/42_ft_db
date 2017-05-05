@@ -12,7 +12,7 @@
 
 #include <ft_db.h>
 
-int filter(struct s_header *header, struct s_command cmd,
+int		filter(struct s_header *header, struct s_command cmd,
 				t_vec *entries, t_vec *db)
 {
 	t_vec	new_entries;

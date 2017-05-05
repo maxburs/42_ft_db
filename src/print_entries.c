@@ -14,9 +14,9 @@
 
 int		print_entries(struct s_header *header, t_vec *entries)
 {
-	size_t	i;
-	int j;
-	uint8_t	*entry;
+	size_t		i;
+	int			j;
+	uint8_t		*entry;
 
 	write(1, "\n", 1);
 	i = 0;
@@ -28,7 +28,8 @@ int		print_entries(struct s_header *header, t_vec *entries)
 		{
 			write(1, header->fields[j].name, header->fields[j].name_size);
 			write(1, ":", 1);
-			write(1, entry + (j * header->fields[j].value_size), header->fields[j].value_size);
+			write(1, entry + (j * header->fields[j].value_size),
+				header->fields[j].value_size);
 			write(1, "  ", 2);
 			j++;
 		}

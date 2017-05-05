@@ -14,8 +14,6 @@
 
 /*
 ** TODO: Let user know if db is loading or initializing
-** TODO: GETALL function 
-**     -> added function, untested and needs to be added to get next command
 **
 ** BUG: right now the default db save will overwrite the last one,
 **     need to generage new name if deafult exists (db, db(1), db(2), ...)
@@ -65,12 +63,24 @@ static int		manip_db(struct s_header *header, t_vec *db)
 	return (ret);
 }
 
+void			free_header(struct s_header *header)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < header->field_count)
+	{
+		free(header->fields[i].name);
+		i++;
+	}
+	free(header->fields);
+}
+
 int				main(int argc, char **argv)
 {
 	struct s_header		header;
 	t_vec				db;
 	int					ret;
-	uint64_t 				i;
 
 	g_error = NULL;
 	ret = 0;
@@ -82,12 +92,6 @@ int				main(int argc, char **argv)
 		ret = 1;
 	}
 	vec_del(&db);
-	i = 0;
-	while (i < header.field_count)
-	{
-		free(header.fields[i].name);
-		i++;
-	}
-	free(header.fields);
+	free_header(&header);
 	return (ret);
 }
