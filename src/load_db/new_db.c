@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/04 22:07:50 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/04 22:32:57 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int			new_db(struct s_header *header, t_vec *db)
 			{
 				free(line);
 				write(1, "Field already exists\n", 21);
+				get_next_line(&line);
 			}
-			get_next_line(&line);
 			j++;
 		}
 		header->fields[i].name = line;
