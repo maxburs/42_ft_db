@@ -26,6 +26,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+# define DEFAULT_FILE "default.db"
+
 # define COMMAND_COUNT 9
 
 enum			e_ctype
