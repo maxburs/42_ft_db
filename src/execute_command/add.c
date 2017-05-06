@@ -19,7 +19,6 @@ static void		repoint(t_vec *entries, t_vec *db, uint8_t *old_data)
 	entry = (uint8_t**)entries->data;
 	while (entry < (uint8_t**)entries->data_end)
 	{
-		printf("repoint i: %ju\n", (*entry - old_data) / db->elmnt_size);
 		*entry = vec_get(db, (*entry - old_data) / db->elmnt_size);
 		entry++;
 	}
