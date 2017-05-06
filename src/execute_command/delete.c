@@ -44,7 +44,7 @@ static void		entries_reverse_sort(t_vec *entries, t_vec *db)
 			if (swap(vec_get(entries, i), vec_get(entries, i + 1)))
 			{
 			printf("\e[1mswapping: %zu, %zu\e[0m\n", i, i + 1);
-			debug_entries(entries, db);
+			debug_entries(db, entries);
 			made_change = true;
 			}
 			i++;
@@ -69,7 +69,7 @@ int				delete(struct s_header *header, struct s_command *cmd,
 	size_t	j;
 	uint8_t	*entry;
 
-			debug_entries(entries, db);
+			debug_entries(db, entries);
 	(void)(db);
 	entries_reverse_sort(entries, db);
 	i = 0;

@@ -46,6 +46,6 @@ int				add(struct s_header *header, struct s_command *cmd,
 		cmd->value, header->fields[cmd->field].value_size);
 	if (-1 == vec_add(entries, &entry))
 		return (-1);
-	debug
+	debug_entries(db, entries);
 	return (0);
 }
