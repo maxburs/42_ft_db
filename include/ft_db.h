@@ -85,16 +85,16 @@ int				open_db(struct s_header *header, t_vec *db, int fd);
 /*
 ** get_command/
 */
-int			get_next_command(struct s_command *command, 
+int				get_next_command(struct s_command *command,
 					struct s_header *header);
-int			get_command_type(char *line, 
+int				get_command_type(char *line,
 					struct s_command *command);
-int			get_field(char *line, struct s_header *header, 
+int				get_field(char *line, struct s_header *header,
 					uint64_t *field_type);
-int			get_value(char *line, struct s_command *command,
+int				get_value(char *line, struct s_command *command,
 					struct s_header *header);
-uint64_t	value_size(char *line);
-int			compare_string(char *big, char *little);
+uint64_t		value_size(char *line);
+int				compare_string(char *big, char *little);
 /*
 ** execute_command/
 */
