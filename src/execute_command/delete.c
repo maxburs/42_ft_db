@@ -27,7 +27,7 @@ static _Bool	swap(uint8_t **first, uint8_t **second)
 		return (false);
 }
 
-static void		entries_reverse_sort(t_vec *entries, t_vec *db)
+static void		entries_reverse_sort(t_vec *entries)
 {
 	size_t		i;
 	_Bool		made_change;
@@ -39,27 +39,13 @@ static void		entries_reverse_sort(t_vec *entries, t_vec *db)
 		i = 0;
 		while (i + 1 < entries->elmnt_count)
 		{
-			//made_change = made_change \
-			//	|| swap(vec_get(entries, i, db), vec_get(entries, i + 1));
-			if (swap(vec_get(entries, i), vec_get(entries, i + 1)))
-			{
-			printf("\e[1mswapping: %zu, %zu\e[0m\n", i, i + 1);
-			debug_entries(db, entries);
+			made_change = made_change \
+				|| swap(vec_get(entries, i, db), vec_get(entries, i + 1));
 			made_change = true;
 			}
 			i++;
 		}
 	}
-}
-
-static void		debug(t_vec *db, uint8_t *entry)
-{
-	size_t	j;
-
-	j = (entry - db->data) / db->elmnt_size;
-	printf("db offset: %ju\n", j);
-	printf("db elmnt size: %ju\n", db->elmnt_size);
-	printf("deleting entry: %ju\n", j);
 }
 
 int				delete(struct s_header *header, struct s_command *cmd,
@@ -71,7 +57,7 @@ int				delete(struct s_header *header, struct s_command *cmd,
 
 			debug_entries(db, entries);
 	(void)(db);
-	entries_reverse_sort(entries, db);
+	entries_reverse_sort(entries);
 	i = 0;
 	while (i < entries->elmnt_count)
 	{
@@ -79,9 +65,16 @@ int				delete(struct s_header *header, struct s_command *cmd,
 		j = (entry - db->data) / db->elmnt_size;
 		if (DEBUG)
 			debug(db, entry);
-		if (-1 == vec_rm(db, j))
-			return (-1);
+		memcpy(db->data + (j * db->elmnt_size),
+			db->data + ((j + 1) * db->elmnt_size),
+			(db->elmnt_count - (j + 1)) * db->elmnt_size);
+		db->elmnt_count--;
 		i++;
+	}
+	if (db->elmnt_count * VECTOR_DECREASE_RATIO < db->elmnt_max)
+	{
+		if (-1 == vec_realloc(db, VECTOR_INCREASE_RATIO))
+			return (-1);
 	}
 	clear(header, cmd, entries, db);
 	return (0);
