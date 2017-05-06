@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/28 14:04:53 by rle               #+#    #+#             */
-/*   Updated: 2017/05/05 22:17:46 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/05 23:02:51 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			get_next_command(struct s_command *command, struct s_header *header)
 
 	ret = 0;
 	ft_bzero(command, sizeof(*command));
-	while (command->type == NONE && ret != 1)
+	while (ret != 1)
 	{
 		if (-1 == get_next_line(&line))
 			break ;

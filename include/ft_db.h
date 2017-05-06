@@ -28,7 +28,7 @@
 
 # define DEFAULT_FILE "default.db"
 # define INPUT_PROMPT "\e[33mft_db ->\e[39m "
-# define DEBUG 1
+# define DEBUG 0
 
 # define COMMAND_COUNT 9
 

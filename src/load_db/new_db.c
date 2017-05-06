@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/05 22:51:13 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/05 23:03:35 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 #define VALUE_SIZE	100
 
-static int get_head_count(struct s_header *header)
+static int	get_head_count(struct s_header *header)
 {
-	int n;
-	char *line;
+	int		n;
+	char	*line;
 
 	write(1, "How many fields?\n", 17);
 	get_next_line(&line);
@@ -35,10 +35,11 @@ static int get_head_count(struct s_header *header)
 		return (-1);
 	return (0);
 }
-static int get_h_field(struct s_header *header, int max)
+
+static int	get_h_field(struct s_header *header, int max)
 {
-	int i;
-	char *line;
+	int		i;
+	char	*line;
 
 	i = 0;
 	printf("Field %i?\n", i + 1);
@@ -59,7 +60,7 @@ static int get_h_field(struct s_header *header, int max)
 	return (1);
 }
 
-static int get_h_value(int *value_size)
+static int	get_h_value(int *value_size)
 {
 	char *line;
 
@@ -93,7 +94,8 @@ int			new_db(struct s_header *header, t_vec *db)
 		if (i == 0)
 			header->fields[i].offset = 0;
 		else
-			header->fields[i].offset = header->fields[i - 1].offset + value_size;
+			header->fields[i].offset = \
+		header->fields[i - 1].offset + value_size;
 		header->fields[i].value_size = value_size;
 		header->entry_size += value_size;
 		i++;
