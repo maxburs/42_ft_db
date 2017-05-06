@@ -6,7 +6,7 @@
 #    By: rle <rle@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/23 19:31:26 by mburson           #+#    #+#              #
-#    Updated: 2017/05/03 15:22:51 by rle              ###   ########.fr        #
+#    Updated: 2017/05/05 22:11:27 by rle              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ SRC = \
 	$(addprefix src/, \
 		debug.c \
 		ft_db.c \
-		get_command.c \
 		get_next_line.c \
 		print_entries.c \
 		save_db.c \
@@ -27,6 +26,12 @@ SRC = \
 			load_db.c \
 			new_db.c \
 			open_db.c \
+		) \
+		$(addprefix get_command/, \
+			get_command.c \
+			get_type.c \
+			get_field.c \
+			get_value.c \
 		) \
 		$(addprefix execute_command/, \
 			execute_command.c \

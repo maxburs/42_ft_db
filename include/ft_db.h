@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/04 22:39:55 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/05 22:12:06 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ struct			s_header
 
 extern char		*g_error;
 
-int				get_next_command(struct s_command *command,
-					struct s_header *header);
 int				print_entries(struct s_header *header, t_vec *entries);
 int				get_next_line(char **next_line);
 int				save_db(struct s_header *header, t_vec *db, int argc,
@@ -84,6 +82,19 @@ int				load_db(struct s_header *header, t_vec *db, int argc,
 int				new_db(struct s_header *header, t_vec *db);
 int				open_db(struct s_header *header, t_vec *db, int fd);
 
+/*
+** get_command/
+*/
+int			get_next_command(struct s_command *command, 
+					struct s_header *header);
+int			get_command_type(char *line, 
+					struct s_command *command);
+int			get_field(char *line, struct s_header *header, 
+					uint64_t *field_type);
+int			get_value(char *line, struct s_command *command,
+					struct s_header *header);
+uint64_t	value_size(char *line);
+int			compare_string(char *big, char *little);
 /*
 ** execute_command/
 */

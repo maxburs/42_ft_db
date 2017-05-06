@@ -8,58 +8,63 @@ The database can be viewed as:
 
 	entry2: field:value, field:value, field:value
 
-The user may GET data which is displayed and added to a holding
+GET adds data to an entry holding
 
-The user can then SET fields in the holding to a value
+SET sets fields in the entry holding to a value
 
-The user can also ADD their own entries with a field and a value
+ADD adds data to the database and entry holding
 
-CLEAR resets the entry holding
+FILTER removes data from the entry holding that doesn't match the field:value
+
+DELETE removes data from the entry holding and database
+
+GETALL grabs every data from the database and adds it to the entry holding
+
+CLEAR removes everything from the entry holding
 
 CLOSE exits the program
 
 Examples:
 ---------
+./ft_db
 
-1. GET
+ADD name:foo
+	
+	name: foo color: 
 
-	./ft_db
+ADD name:bar
 
-	GET name:foo
+	name: foo color:
+	name: bar color:
 
-	foobar
+SET color:red
 
-2. SET
+	name: foo color: red
+	name: bar color: red
 
-	./ft_db
+CLEAR
 
-	GET name:foo
+	(no held entries)
 
-	foobar
+GET name:foo
+	
+	name: foo color: red
 
-	SET foo:red
+GET name:bar
 
-	foored
+	name: foo color: red
+	name: bar color: red
 
-3. ADD
+FILTER name:foo
+	
+	name: foo color: red
 
-	./ft_db
+DELETE name:foo
 
-	ADD a:1
+	(no held entries)
 
-	a:1
+GETALL
+	
+	name: bar color: red
 
-4. CLEAR
-
-	./ft_db
-
-	CLEAR
-
-
-5. CLOSE
-
-	./ft_db
-
-	CLOSE
-
-	(program closes)
+CLOSE
