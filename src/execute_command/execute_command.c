@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/04 14:49:22 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/05 23:23:56 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static int	(*const g_commands[])(struct s_header *header,
 	&delete,
 	&filter,
 	&getall,
+	&drop,
 	&clear
 };
 

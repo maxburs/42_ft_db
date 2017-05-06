@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/05 22:12:06 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/05 23:23:51 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ enum			e_ctype
 	DELETE = 5,
 	FILTER = 6,
 	GETALL = 7,
-	CLEAR = 8
+	DROP = 8,
+	CLEAR = 9
 };
 
 struct			s_command
@@ -114,6 +115,8 @@ int				getall(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
 int				set(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
+int				drop(struct s_header *header,
+					struct s_command *command, t_vec *entries, t_vec *db);
 
 /*
 ** debug.c
