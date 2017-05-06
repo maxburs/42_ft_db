@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/05 22:07:49 by rle               #+#    #+#             */
-/*   Updated: 2017/05/05 22:15:13 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/05 23:09:36 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int		get_command_type(char *line, struct s_command *command)
 		command->type = FILTER;
 	if (compare_string(line, "GETALL"))
 		command->type = GETALL;
+	if (compare_string(line, "DROP"))
+		command->type = DROP;
 	if (command->type == NONE)
 		return (0);
 	return (1);
