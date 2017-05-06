@@ -39,6 +39,7 @@ int				load_db(struct s_header *header, t_vec *db, int argc,
 		if (errno == 2)
 		{
 			errno = 0;
+			printf("\e[1mnew db: %s\e[0m\n", file);
 			return (new_db(header, db));
 		}
 		else
@@ -46,7 +47,7 @@ int				load_db(struct s_header *header, t_vec *db, int argc,
 	}
 	else
 	{
-		printf("opening %s\n", file);
+		printf("\e[1mopening: %s\e[0m\n\n", file);
 		return (open_db(header, db, fd));
 	}
 }

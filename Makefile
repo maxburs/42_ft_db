@@ -17,6 +17,7 @@ LIBFT_DIR = ./libft
 
 SRC = \
 	$(addprefix src/, \
+		debug.c \
 		ft_db.c \
 		get_next_line.c \
 		print_entries.c \
@@ -57,7 +58,7 @@ OBJ = $(SRC:.c=.o)
 
 HEADERS = -I ./include -I ./libft
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 
