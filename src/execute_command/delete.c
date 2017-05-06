@@ -40,9 +40,7 @@ static void		entries_reverse_sort(t_vec *entries)
 		while (i + 1 < entries->elmnt_count)
 		{
 			made_change = made_change \
-				|| swap(vec_get(entries, i, db), vec_get(entries, i + 1));
-			made_change = true;
-			}
+				|| swap(vec_get(entries, i), vec_get(entries, i + 1));
 			i++;
 		}
 	}
@@ -55,7 +53,6 @@ int				delete(struct s_header *header, struct s_command *cmd,
 	size_t	j;
 	uint8_t	*entry;
 
-			debug_entries(db, entries);
 	(void)(db);
 	entries_reverse_sort(entries);
 	i = 0;
@@ -63,8 +60,6 @@ int				delete(struct s_header *header, struct s_command *cmd,
 	{
 		entry = *(uint8_t**)vec_get(entries, i);
 		j = (entry - db->data) / db->elmnt_size;
-		if (DEBUG)
-			debug(db, entry);
 		memcpy(db->data + (j * db->elmnt_size),
 			db->data + ((j + 1) * db->elmnt_size),
 			(db->elmnt_count - (j + 1)) * db->elmnt_size);
