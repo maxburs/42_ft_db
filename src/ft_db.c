@@ -36,6 +36,8 @@ static int		manip_loop(struct s_header *header, t_vec *db,
 {
 	while (true)
 	{
+		if (DEBUG)
+			debug_print(header, db, command, held_entries);
 		if ((-1 == get_next_command(command, header))
 			|| -1 == execute_command(header, command, held_entries, db))
 		{

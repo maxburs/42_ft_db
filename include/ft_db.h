@@ -28,6 +28,7 @@
 
 # define DEFAULT_FILE "default.db"
 # define INPUT_PROMPT "\e[33mft_db ->\e[39m "
+# define DEBUG 1
 
 # define COMMAND_COUNT 9
 
@@ -102,4 +103,15 @@ int				getall(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
 int				set(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
+
+/*
+** debug.c
+*/
+void			debug_print(struct s_header *header, t_vec *db,
+					struct s_command *command, t_vec *held_entries);
+void			debug_entries(t_vec *db, t_vec *entries);
+void			debug_command(struct s_command *command);
+void			debug_db(t_vec *db);
+void			debug_header(struct s_header *header);
+
 #endif

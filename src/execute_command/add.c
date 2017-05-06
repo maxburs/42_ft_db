@@ -19,6 +19,7 @@ static void		repoint(t_vec *entries, t_vec *db, uint8_t *old_data)
 	entry = (uint8_t**)entries->data;
 	while (entry < (uint8_t**)entries->data_end)
 	{
+		printf("repoint i: %ju\n", (*entry - old_data) / db->elmnt_size);
 		*entry = vec_get(db, (*entry - old_data) / db->elmnt_size);
 		entry++;
 	}
@@ -45,5 +46,6 @@ int				add(struct s_header *header, struct s_command *cmd,
 		cmd->value, header->fields[cmd->field].value_size);
 	if (-1 == vec_add(entries, &entry))
 		return (-1);
+	debug
 	return (0);
 }
