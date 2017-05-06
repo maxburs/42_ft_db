@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/04 22:44:05 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/05 14:03:48 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		print_entries(struct s_header *header, t_vec *entries)
 		i++;
 	}
 	if (i == 0)
-		puts("(nothing held)");
+		write(1, "(nothing held)\n", 15);
 	write(1, "\n", 1);
 	return (0);
 }
