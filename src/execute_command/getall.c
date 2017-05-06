@@ -12,7 +12,7 @@
 
 #include <ft_db.h>
 
-int		getall(struct s_header *header, struct s_command cmd,
+int		getall(struct s_header *header, struct s_command *cmd,
 			t_vec *entries, t_vec *db)
 {
 	size_t		i;

@@ -26,7 +26,7 @@ static _Bool	already_held(t_vec *held_entries, uint8_t *entry)
 	return (false);
 }
 
-int				get(struct s_header *header, struct s_command cmd,
+int				get(struct s_header *header, struct s_command *cmd,
 				t_vec *entries, t_vec *db)
 {
 	size_t	i;
@@ -36,8 +36,8 @@ int				get(struct s_header *header, struct s_command cmd,
 	while (i < db->elmnt_count)
 	{
 		entry = vec_get(db, i);
-		if (0 == memcmp(entry + header->fields[cmd.field].offset,
-			cmd.value, header->fields[cmd.field].value_size)
+		if (0 == memcmp(entry + header->fields[cmd->field].offset,
+			cmd->value, header->fields[cmd->field].value_size)
 			&& !already_held(entries, entry))
 		{
 			if (-1 == vec_add(entries, &entry))

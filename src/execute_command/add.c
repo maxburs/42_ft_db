@@ -25,7 +25,7 @@ static void		repoint(t_vec *entries, t_vec *db, uint8_t *old_data)
 	entries->data_end = (void*)entry;
 }
 
-int				add(struct s_header *header, struct s_command cmd,
+int				add(struct s_header *header, struct s_command *cmd,
 				t_vec *entries, t_vec *db)
 {
 	uint8_t		*entry;
@@ -37,12 +37,12 @@ int				add(struct s_header *header, struct s_command cmd,
 			return (-1);
 		repoint(entries, db, entry);
 	}
+	entry = vec_get(db, db->elmnt_count);
 	db->elmnt_count++;
 	db->data_end = (uint8_t*)db->data_end + db->elmnt_size;
-	entry = vec_get(db, db->elmnt_count - 1);
 	bzero(entry, header->entry_size);
-	memcpy(entry + header->fields[cmd.field].offset,
-		cmd.value, header->fields[cmd.field].value_size);
+	memcpy(entry + header->fields[cmd->field].offset,
+		cmd->value, header->fields[cmd->field].value_size);
 	if (-1 == vec_add(entries, &entry))
 		return (-1);
 	return (0);

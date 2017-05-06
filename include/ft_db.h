@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/04 18:52:02 by mburson           #+#    #+#             */
-/*   Updated: 2017/05/04 22:39:55 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/05 22:12:06 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <fcntl.h>
 
 # define DEFAULT_FILE "default.db"
+# define INPUT_PROMPT "\e[33mft_db ->\e[39m "
 
 # define COMMAND_COUNT 9
 
@@ -67,8 +68,6 @@ struct			s_header
 
 extern char		*g_error;
 
-int				get_next_command(struct s_command *command,
-					struct s_header *header);
 int				print_entries(struct s_header *header, t_vec *entries);
 int				get_next_line(char **next_line);
 int				save_db(struct s_header *header, t_vec *db, int argc,
@@ -83,22 +82,35 @@ int				new_db(struct s_header *header, t_vec *db);
 int				open_db(struct s_header *header, t_vec *db, int fd);
 
 /*
+** get_command/
+*/
+int			get_next_command(struct s_command *command, 
+					struct s_header *header);
+int			get_command_type(char *line, 
+					struct s_command *command);
+int			get_field(char *line, struct s_header *header, 
+					uint64_t *field_type);
+int			get_value(char *line, struct s_command *command,
+					struct s_header *header);
+uint64_t	value_size(char *line);
+int			compare_string(char *big, char *little);
+/*
 ** execute_command/
 */
-int				execute_command(struct s_header *header, struct s_command
-					command, t_vec *entries, t_vec *db);
-int				add(struct s_header *header, struct s_command cmd,
+int				execute_command(struct s_header *header,
+					struct s_command *command, t_vec *entries, t_vec *db);
+int				add(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int				clear(struct s_header *header, struct s_command cmd,
+int				clear(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int 			delete(struct s_header *header, struct s_command cmd,
+int				delete(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int				filter(struct s_header *header, struct s_command cmd,
+int				filter(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int				get(struct s_header *header, struct s_command cmd,
+int				get(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int				getall(struct s_header *header, struct s_command cmd,
+int				getall(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int				set(struct s_header *header, struct s_command cmd,
+int				set(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
 #endif

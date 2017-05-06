@@ -18,7 +18,7 @@ int				vec_rm(t_vec *vector, size_t index)
 {
 	memcpy(vector->data + (index * vector->elmnt_size),
 		vector->data + ((index + 1) * vector->elmnt_size),
-		(vector->elmnt_count - index) * vector->elmnt_size);
+		(vector->elmnt_count - (index + 1)) * vector->elmnt_size);
 	vector->elmnt_count--;
 	if (vector->elmnt_count * VECTOR_DECREASE_RATIO < vector->elmnt_max)
 	{
