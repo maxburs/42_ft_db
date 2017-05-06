@@ -17,6 +17,8 @@
 **
 ** BUG: right now the default db save will overwrite the last one,
 **     need to generage new name if deafult exists (db, db(1), db(2), ...)
+**
+** BUG: shit hits the fan when we delete
 */
 
 char	*g_error;
@@ -27,6 +29,26 @@ static void		print_error(void)
 		dprintf(STDERR_FILENO, "ERROR: %s\n", g_error);
 	else
 		perror("ERROR");
+}
+
+static int		manip_loop(struct s_header *header, t_vec *db,
+					struct s_command *command, t_vec *held_entries)
+{
+	while (true)
+	{
+		if ((-1 == get_next_command(command, header))
+			|| -1 == execute_command(header, command, held_entries, db))
+		{
+			return (1);
+		}
+		if (command->type == CLOSE)
+			return (0);
+		if (-1 == print_entries(header, held_entries))
+		{
+			return (1);
+		}
+		ft_memdel(&command->value);
+	}
 }
 
 static int		manip_db(struct s_header *header, t_vec *db)
@@ -41,23 +63,7 @@ static int		manip_db(struct s_header *header, t_vec *db)
 		print_error();
 		return (-1);
 	}
-	while (true)
-	{
-		if ((-1 == get_next_command(&command, header))
-			|| -1 == execute_command(header, command, &held_entries, db))
-		{
-			ret = 1;
-			break ;
-		}
-		if (command.type == CLOSE)
-			break ;
-		if (-1 == print_entries(header, &held_entries))
-		{
-			ret = 1;
-			break ;
-		}
-		ft_memdel(&command.value);
-	}
+	ret = manip_loop(header, db, &command, &held_entries);
 	vec_del(&held_entries);
 	free(command.value);
 	return (ret);

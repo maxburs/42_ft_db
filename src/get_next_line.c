@@ -44,13 +44,24 @@ int				get_next_line(char **next_line)
 {
 	t_lstr	*line;
 	char	*swap;
+	char	*c;
 
+	ft_putstr(INPUT_PROMPT);
 	line = next_lstr();
 	if (line == NULL)
 		return (-1);
-	swap = lstr_finish(&line);
-	if (NULL == (*next_line = ft_strndup(swap, ft_strchr(swap, '\n') - swap)))
+	if (NULL == (swap = lstr_finish(&line)))
 		return (-1);
-	free(swap);
+	if (NULL == (c = ft_strchr(swap, '\n')))
+	{
+		*next_line = swap;
+	}
+	else
+	{
+		*next_line = ft_strndup(swap, ft_strchr(swap, '\n') - swap);
+		free(swap);
+		if (NULL == *next_line)
+			return (-1);
+	}
 	return (0);
 }

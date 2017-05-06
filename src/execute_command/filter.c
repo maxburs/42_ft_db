@@ -12,7 +12,7 @@
 
 #include <ft_db.h>
 
-int		filter(struct s_header *header, struct s_command cmd,
+int		filter(struct s_header *header, struct s_command *cmd,
 				t_vec *entries, t_vec *db)
 {
 	t_vec	new_entries;
@@ -25,8 +25,8 @@ int		filter(struct s_header *header, struct s_command cmd,
 	while (i < entries->elmnt_count)
 	{
 		entry = *(uint8_t**)vec_get(entries, i);
-		if (0 == memcmp(entry + header->fields[cmd.field].offset,
-			cmd.value, header->fields[cmd.field].value_size))
+		if (0 == memcmp(entry + header->fields[cmd->field].offset,
+			cmd->value, header->fields[cmd->field].value_size))
 		{
 			vec_add(&new_entries, &entry);
 		}

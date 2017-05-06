@@ -27,6 +27,7 @@
 # include <fcntl.h>
 
 # define DEFAULT_FILE "default.db"
+# define INPUT_PROMPT "\e[33mft_db ->\e[39m "
 
 # define COMMAND_COUNT 9
 
@@ -85,20 +86,20 @@ int				open_db(struct s_header *header, t_vec *db, int fd);
 /*
 ** execute_command/
 */
-int				execute_command(struct s_header *header, struct s_command
-					command, t_vec *entries, t_vec *db);
-int				add(struct s_header *header, struct s_command cmd,
+int				execute_command(struct s_header *header,
+					struct s_command *command, t_vec *entries, t_vec *db);
+int				add(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int				clear(struct s_header *header, struct s_command cmd,
+int				clear(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int				delete(struct s_header *header, struct s_command cmd,
+int				delete(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int				filter(struct s_header *header, struct s_command cmd,
+int				filter(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int				get(struct s_header *header, struct s_command cmd,
+int				get(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int				getall(struct s_header *header, struct s_command cmd,
+int				getall(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
-int				set(struct s_header *header, struct s_command cmd,
+int				set(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db);
 #endif

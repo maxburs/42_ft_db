@@ -52,7 +52,7 @@ OBJ = $(SRC:.c=.o)
 
 HEADERS = -I ./include -I ./libft
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 all: $(NAME)
 

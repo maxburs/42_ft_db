@@ -12,7 +12,7 @@
 
 #include <ft_db.h>
 
-int	set(struct s_header *header, struct s_command cmd,
+int	set(struct s_header *header, struct s_command *cmd,
 				t_vec *entries, t_vec *db)
 {
 	size_t	i;
@@ -23,8 +23,8 @@ int	set(struct s_header *header, struct s_command cmd,
 	while (i < entries->elmnt_count)
 	{
 		entry = *(uint8_t**)vec_get(entries, i);
-		memcpy(entry + header->fields[cmd.field].offset,
-			cmd.value, header->fields[cmd.field].value_size);
+		memcpy(entry + header->fields[cmd->field].offset,
+			cmd->value, header->fields[cmd->field].value_size);
 		i++;
 	}
 	return (0);

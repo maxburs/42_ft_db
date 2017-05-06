@@ -46,7 +46,7 @@ void	entries_reverse_sort(t_vec *entries)
 	}
 }
 
-int		delete(struct s_header *header, struct s_command cmd,
+int		delete(struct s_header *header, struct s_command *cmd,
 					t_vec *entries, t_vec *db)
 {
 	size_t	i;
@@ -60,7 +60,8 @@ int		delete(struct s_header *header, struct s_command cmd,
 	{
 		entry = *(uint8_t**)vec_get(entries, i);
 		j = (entry - db->data) / db->elmnt_size;
-		vec_rm(db, j);
+		if (-1 == vec_rm(db, j))
+			return (-1);
 		i++;
 	}
 	clear(header, cmd, entries, db);

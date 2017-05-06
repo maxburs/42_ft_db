@@ -12,7 +12,7 @@
 
 #include <ft_db.h>
 
-int	clear(struct s_header *header, struct s_command cmd,
+int	clear(struct s_header *header, struct s_command *cmd,
 				t_vec *entries, t_vec *db)
 {
 	(void)(header);
