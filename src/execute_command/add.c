@@ -6,7 +6,7 @@
 /*   By: rle <rle@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/03 15:03:52 by rle               #+#    #+#             */
-/*   Updated: 2017/05/03 15:45:43 by rle              ###   ########.fr       */
+/*   Updated: 2017/05/05 22:39:59 by rle              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,5 @@ int				add(struct s_header *header, struct s_command *cmd,
 		cmd->value, header->fields[cmd->field].value_size);
 	if (-1 == vec_add(entries, &entry))
 		return (-1);
-	debug
 	return (0);
 }
