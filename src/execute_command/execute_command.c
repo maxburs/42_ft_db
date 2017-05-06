@@ -22,8 +22,8 @@ static int	none(struct s_header *header, struct s_command *cmd,
 	return (0);
 }
 
-static int	(*const g_commands[])(struct s_header *header, struct s_command *cmd,
-				t_vec *entries, t_vec *db) =
+static int	(*const g_commands[])(struct s_header *header,
+				struct s_command *cmd, t_vec *entries, t_vec *db) =
 {
 	&none,
 	&none,
