@@ -14,7 +14,24 @@
 
 void	debug_header(struct s_header *header)
 {
-	(void)(header);
+	uint64_t	i;
+
+	puts("\e[32mheader debug:\e[39m");
+	printf("entry_size: %llu\n", header->entry_size);
+	printf("field_count: %llu\n", header->field_count);
+	ft_putchar('\n');
+	i = 0;
+	while (i < header->field_count)
+	{
+		printf("\e[32mfield %llu\e[39m\n", i);
+		puts("name:");
+		write(1, header->fields[i].name, header->fields[i].name_size);
+		ft_putchar('\n');
+		printf("offset: %llu\n", header->fields[i].offset);
+		printf("value_size: %llu\n", header->fields[i].value_size);
+		ft_putchar('\n');
+		i++;
+	}
 }
 
 void	debug_db(t_vec *db)
@@ -50,7 +67,6 @@ void	debug_entries(t_vec *db, t_vec *entries)
 void	debug_print(struct s_header *header, t_vec *db,
 					struct s_command *command, t_vec *held_entries)
 {
-	debug_header(header);
 	debug_db(db);
 	debug_command(command);
 	debug_entries(db, held_entries);

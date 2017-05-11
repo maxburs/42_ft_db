@@ -101,5 +101,7 @@ int			new_db(struct s_header *header, t_vec *db)
 		i++;
 	}
 	vec_init(db, header->entry_size);
+	if (DEBUG)
+		debug_header(header);
 	return (0);
 }
