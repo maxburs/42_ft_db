@@ -95,7 +95,7 @@ int			new_db(struct s_header *header, t_vec *db)
 			header->fields[i].offset = 0;
 		else
 			header->fields[i].offset = \
-		header->fields[i - 1].offset + value_size;
+		header->fields[i - 1].offset + header->fields[i - 1].value_size;
 		header->fields[i].value_size = value_size;
 		header->entry_size += value_size;
 		i++;
