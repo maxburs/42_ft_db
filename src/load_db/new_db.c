@@ -42,7 +42,7 @@ static int	get_h_field(struct s_header *header, int max)
 	char	*line;
 
 	i = 0;
-	printf("Field %i?\n", i + 1);
+	printf("Field %i?\n", max + 1);
 	get_next_line(&line);
 	while (i < max)
 	{
